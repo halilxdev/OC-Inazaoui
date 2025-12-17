@@ -33,8 +33,8 @@ class AlbumController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->getManager()->persist($album);
-            $this->entityManager->getManager()->flush();
+            $this->entityManager->persist($album);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('admin_album_index');
         }
@@ -50,7 +50,7 @@ class AlbumController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->getManager()->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('admin_album_index');
         }
@@ -62,8 +62,8 @@ class AlbumController extends AbstractController
     public function delete(int $id)
     {
         $media = $this->entityManager->getRepository(Album::class)->find($id);
-        $this->entityManager->getManager()->remove($media);
-        $this->entityManager->getManager()->flush();
+        $this->entityManager->remove($media);
+        $this->entityManager->flush();
 
         return $this->redirectToRoute('admin_album_index');
     }
