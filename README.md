@@ -9,11 +9,25 @@ Faudrait peut être trouver une meilleure solution car le fichier est très gros
 
 # TO-DO
 
-## Étape 1 — 17/12/2025
+## Étape 1 : Migration vers une version plus récente — 17/12/2025
 
 **Migration et mise à jour de la version du projet**
 
+### Routes
 
+Ancienne façon de faire :
+
+```php
+    /**
+     * @Route("/guests", name="guests")
+     */
+```
+
+Nouvelle façon de faire :
+
+```php
+    #[Route('/guests', name: 'guests')]
+```
 
 # Auto-évaluation
 
