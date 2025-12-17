@@ -11,7 +11,7 @@ Faudrait peut être trouver une meilleure solution car le fichier est très gros
 
 ## Étape 1 — 17/12/2025
 
-*** Migration et mise à jour de la version du projet ***
+**Migration et mise à jour de la version du projet**
 
 
 
