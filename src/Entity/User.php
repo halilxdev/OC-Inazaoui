@@ -19,6 +19,12 @@ class User
     #[ORM\Column]
     private bool $admin = false;
 
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
+
     #[ORM\Column]
     private ?string $name;
 
@@ -92,4 +98,20 @@ class User
     {
         $this->admin = $admin;
     }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
 }
