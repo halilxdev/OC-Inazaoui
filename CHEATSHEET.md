@@ -15,6 +15,9 @@ symfony console doctrine:database:create
 symfony console make:migration
 ```
 ```bash
+symfony console doctrine:migrations:diff
+```
+```bash
 symfony console doctrine:migrations:migrate -n
 ```
 

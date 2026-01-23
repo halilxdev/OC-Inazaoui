@@ -17,7 +17,7 @@
 - [ ] J’ai ajouté une vérification du fichier uploadé : Le composant “Validation” est utilisé pour vérifier le type et le poids du fichier.  
 - [ ] J’ai ajouté une vérification du fichier uploadé : La vérification du type est effectuée avec le “mime type”.  
 - [ ] J’ai ajouté une vérification du fichier uploadé : Un message d’erreur explicite est visible par l’utilisateur si le fichier n’est pas le bon type ou si son poids excède 2 Mégaoctets.  
-- [ ] Les données sont chargées depuis la base de données à l’authentification : La section “providers” est bien paramétrée dans le fichier “security.yaml”.  
+- [x] Les données sont chargées depuis la base de données à l’authentification : La section “providers” est bien paramétrée dans le fichier “security.yaml”.  
 - [ ] La gestion des “invités” permet désormais uniquement à Ina de :  
     - [ ] Lister les invités, contenant son nom et son statut (actif ou bloqué).  
     - [ ] Ajouter un invité.  
@@ -37,7 +37,7 @@
 
 ### Fichier CONTRIBUTING.md
 
-- [ ] J’ai détaillé le mode opératoir pour bien contribuer au projet :  
+- [ ] J’ai détaillé le mode opératoire pour bien contribuer au projet :  
     - [ ] Workflow Github (Issues, Pull Request, Code Review).  
     - [ ] Respect des bonnes pratiques.  
     - [ ] Utilisation des tests et outils d’analyse statique.  

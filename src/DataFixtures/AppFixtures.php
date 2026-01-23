@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        // Owner User
+        // Admin User
         $user = new User();
         $user->setAdmin(true);
         $user->setName('ina');
@@ -32,42 +32,47 @@ class AppFixtures extends Fixture
 
         $manager->persist($user);
         
-        // // Bunch of Users
-        // for($i = 0; $i >= 99; $i++)
-        // {
-        //     $user = new User();
-        //     $user->setAdmin(false);
-        //     $user->setName("Invité {$i}");
-        //     $user->setEmail("invite+{$i}@example.com");
-        //     $user->setDescription("Le maître de l''urbanité capturée, explore les méandres des cités avec un regard vif et impétueux, figeant l''énergie des rues dans des instants éblouissants. À travers une technique avant-gardiste, il métamorphose le béton et l''acier en toiles abstraites");
-        //     $user->setPassword("password");
+        // Bunch of Users
+        for($i = 0; $i <= 99; $i++)
+        {
+            $user = new User();
+            $user->setAdmin(false);
+            $user->setName("Invité {$i}");
+            $user->setEmail("invite+{$i}@example.com");
+            $user->setDescription("Le maître de l''urbanité capturée, explore les méandres des cités avec un regard vif et impétueux, figeant l''énergie des rues dans des instants éblouissants. À travers une technique avant-gardiste, il métamorphose le béton et l''acier en toiles abstraites");
+            $user->setPassword($this->passwordHasher->hashPassword($user, 'password'));
 
-        //     $manager->persist($user);
-        // }
-        
+            $manager->persist($user);
+        }
+        $manager->flush();
+
+        // Récupérer tous les utilisateurs
+        $users = $manager->getRepository(User::class)->findAll();
+
         // // Albums
-        // $maxAlbumLength = 5;
-        // for($i = 0; $i >= $maxAlbumLength; $i++)
-        // {
-        //     $album = new Album();
-        //     $album->setName("Album {$i}");
-        //     $manager->persist($album);
-        // }
+        $maxAlbumLength = 5;
+        for($i = 0; $i <= $maxAlbumLength; $i++)
+        {
+            $album = new Album();
+            $album->setName("Album {$i}");
+            $manager->persist($album);
+        }
+        $manager->flush();
 
-        // // Medias
-        // for($i = 0; $i >= 5050; $i++)
-        // {
-        //     $media = new Media();
-        //     $media->setPath("uploads/{{$i}}.jpg"); // PAS LE BON NOMMAGE (0001 et 5050)
-        //     $media->setTitle("Media {$i}");
-        //     $media->setAlbum(null);
-        //     // $media->setUser(); FAIRE UNE FONCTION RANDOMUSER
+        // Récupérer tous les albums
+        $albums = $manager->getRepository(Album::class)->findAll();
 
-        //     $manager->persist($media);
-        // }
+        // Medias
+        for($i = 1; $i <= 5050; $i++)
+        {
+            $media = new Media();
+            $media->setPath("uploads/" . str_pad($i, 4, '0', STR_PAD_LEFT) . ".jpg");
+            $media->setTitle("Media {$i}");
+            $media->setAlbum($albums[array_rand($albums)]);
+            $media->setUser($users[array_rand($users)]);
 
-        // // $product = new Product();
-        // // $manager->persist($product);
+            $manager->persist($media);
+        }
 
         $manager->flush();
     }

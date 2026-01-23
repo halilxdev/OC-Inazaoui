@@ -34,4 +34,43 @@ public function __construct(EntityManagerInterface $entityManager){}
 $guests = $this->entityManager->getRepository(User::class)->findBy(['admin' => false]);
 ```
 
-## Étape 2 — 
+## Étape 2 — Authentification
+
+`security.yaml`
+
+Ancienne façon de faire :
+```yaml
+app_user_provider:
+    memory:
+        users:
+            ina: { password: '$2y$13$7JS0ehfU8vZhB3Q8o1sPGuoQxkiPGXRGgrAizmNfI5Sgy.Dqt9xoW', roles: ['ROLE_ADMIN'] }
+```
+
+Nouvelle façon de faire :
+```yaml
+app_user_provider:
+    entity:
+        class: App\Entity\User
+        property: email
+```
+
+Changement dans le template :  
+Si connectée, header affiche `Back-office` au lieu de connexion.  
+
+Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la base de données.
+
+## Étape 3 - Architecture base de données et Fixtures
+
+- Passage de PostgreSQL à MySQL  
+- Ajout d'une interface PhpMyAdmin  
+- Création complète des Fixtures  
+
+<!-- `Àpp\Entity\User`
+
+```php
+
+```
+
+```php
+
+``` -->
