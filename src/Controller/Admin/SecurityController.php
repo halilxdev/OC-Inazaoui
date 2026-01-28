@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -18,5 +19,12 @@ class SecurityController extends AbstractController
             'last_username' => $lastUsername,
             'error'         => $error,
         ]);
+    }
+
+    #[Route(path: '/logout', name: 'app_logout')]
+    public function app_logout(Security $security)
+    {
+        $security->logout(false);
+        return $this->redirectToRoute('home');
     }
 }

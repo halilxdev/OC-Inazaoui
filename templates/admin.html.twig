@@ -3,7 +3,14 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row">
-            <nav class="col-md-3 col-lg-2 d-none d-md-block bg-dark sidebar min-vh-100 p-4">
+            <nav class="col-md-3 col-lg-2 bg-dark sidebar min-vh-100 p-4" 
+                style="
+                    max-height: 100vh; 
+                    display: flex;
+                    flex-direction: column;
+                    position: fixed;
+                "
+            >
                 <div class="position-sticky">
                     <h1 class="text-white">Admin</h1>
                     <ul class="nav flex-column">
@@ -25,6 +32,13 @@
                             </li>
                         {% endif %}
                     </ul>
+                </div>
+                <div style="flex-grow: 1;"></div>
+                <div class="position-sticky" style="bottom: 10px; padding: 10px;">
+                    <a style="width: 100%; display: flex; align-items: center; gap: 4px; text-decoration: none; color: salmon;" href="{{path('app_logout')}}">
+                        <ion-icon name="exit-outline" style="margin-top: -14px; font-size: 1.1em;"></ion-icon>
+                        <p>Se déconnecter</p>
+                    </a>
                 </div>
             </nav>
             <main class="col-md-9 ms-sm-auto col-lg-10 p-4">
