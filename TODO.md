@@ -67,8 +67,8 @@ Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la 
 
 
 - Dans le back-office :  
-- [ ] Bouton pour retourner sur le front-office  
-- [ ] Bouton pour se déconnecter  
+- [x] Bouton pour retourner sur le front-office  
+- [x] Bouton pour se déconnecter  
 - Route administration->invités
     - [ ] Ajout d'invité
     - [ ] Révocation invité
