@@ -37,8 +37,13 @@ symfony console sass:build
 *Note : le fichier `.symfony.local.yaml` est configuré pour surveiller les fichiers SASS et les compiler automatiquement quand vous lancez le serveur web de Symfony.*
 
 ### Tests
+
 ```bash
 symfony php bin/phpunit
+```
+
+```bash
+vendor/bin/phpunit --coverage-html public/test-coverage
 ```
 
 *Note : Penser à charger les fixtures avant chaque éxécution des tests.*

@@ -59,16 +59,13 @@ Si connectée, header affiche `Back-office` au lieu de connexion.
 
 Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la base de données.
 
-## Étape 3 - Architecture base de données et Fixtures — 23/01/2026
+## Étape 3 - Fixtures — 23/01/2026
 
-- [x] Passage de PostgreSQL à MySQL  
-- [x] Ajout d'une interface PhpMyAdmin  
 - [x] Création complète des Fixtures  
-
-
 - Dans le back-office :  
 - [x] Bouton pour retourner sur le front-office  
 - [x] Bouton pour se déconnecter  
+- [x] Bouton pour retourner sur la page d'accueil depuis login  
 - Route administration->invités
     - [ ] Ajout d'invité
     - [ ] Révocation invité
