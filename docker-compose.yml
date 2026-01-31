@@ -1,26 +1,13 @@
 services:
-  mysql:
-    image: mysql:8.0
+  postgres:
+    image: postgres:16-alpine
     ports:
-      - 3306:3306
+      - 5432:5432
     volumes:
-      - mysql_db:/var/lib/mysql
+      - postgres_db:/var/lib/postgresql/data
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=inzaoui
-      - MYSQL_USER=symfony
-      - MYSQL_PASSWORD=symfony
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - 8080:80
-    environment:
-      - PMA_HOST=mysql
-      - PMA_USER=root
-      - PMA_PASSWORD=root
-    depends_on:
-      - mysql
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
 volumes:
-  mysql_db:
+  postgres_db:
     driver: local
