@@ -19,18 +19,21 @@ class AlbumTest extends TestCase
         $this->assertEquals('Album de test', $album->getName());
     }
 
-    public function testAlbumHasMedia(): void
+    public function testAddMediaInAlbum(): void
     {
-        $media1 = new Media();
-        $media1->setTitle("Premier media");
-        $media2 = new Media();
-        $media2->setTitle("Second media");
-
+        $media = new Media();
         $album = new Album();
-        $media1->setAlbum($album);
-        $media2->setAlbum($album);
+        $album->addMedia($media);
+        $this->assertContains($media, $album->getMedias());
+    }
 
-        $this->assertContains($media1, $media1->getAlbum());
+    public function testRemoveMediaInAlbum(): void
+    {
+        $media = new Media();
+        $album = new Album();
+        $album->addMedia($media);
+        $album->removeMedia($media);
+        $this->assertEmpty($album->getMedias());
     }
 
 }
