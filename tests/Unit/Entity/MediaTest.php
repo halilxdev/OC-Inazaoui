@@ -27,4 +27,18 @@ class MediaTest extends TestCase
         $this->assertEquals($album, $media->getAlbum());
         $this->assertEquals('images/0001.jpg', $media->getPath());
     }
+
+    public function testMediaChangingAlbum(): void
+    {
+        $media = new Media();
+        $album1 = new Album();
+        $album1->setName("Premier album");
+        $album2 = new Album();
+        $album2->setName("Second album");
+
+        $media->setAlbum($album1);
+        $media->setAlbum($album2);
+        $this->assertEquals('Second album', $media->getAlbum()->getName());
+    }
+
 }
