@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  # pull_request:
+  #   branches: [main]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test_db
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+      
+      - name: 🐘 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, xml, pdo_mysql
+          coverage: xdebug
+      
+      - name: 📦 Install dependencies
+        run: composer install --prefer-dist --no-progress
+      
+      - name: 🗄️ Setup database
+        run: |
+          php bin/console doctrine:database:create --env=test
+          php bin/console doctrine:migrations:migrate --no-interaction --env=test
+        env:
+          DATABASE_URL: mysql://root:root@127.0.0.1:3306/test_db
+      
+      - name: 🧪 Run PHPUnit tests
+        run: php bin/phpunit --coverage-text
+        env:
+          DATABASE_URL: mysql://root:root@127.0.0.1:3306/test_db
+      
+      - name: 🔍 PHP CS Fixer (style)
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff
+      
+      - name: 📊 PHPStan (analyse statique)
+        run: vendor/bin/phpstan analyse src --level=5

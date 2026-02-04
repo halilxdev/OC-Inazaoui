@@ -69,7 +69,7 @@ Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la 
 
 ## Étape 5 - Tests unitaires — 04/02/2026  
 
-- 
+- [x] Réalisation des tests unitaires sur toutes les entités  
 
 ## Étape 6 - Tests fonctionnels — 04/02/2026  
 
