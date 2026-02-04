@@ -6,6 +6,7 @@ use App\Entity\Album;
 use App\Entity\Media;
 use App\Entity\User;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class MediaTest extends TestCase
 {
@@ -20,12 +21,14 @@ class MediaTest extends TestCase
         $media->setUser($user);
         $media->setAlbum($album);
         $media->setPath('images/0001.jpg');
+        $media->setFile(null);
         
         $this->assertNull($media->getId());
         $this->assertEquals('Titre de test', $media->getTitle());
         $this->assertEquals($user, $media->getUser());
         $this->assertEquals($album, $media->getAlbum());
         $this->assertEquals('images/0001.jpg', $media->getPath());
+        $this->assertNull($media->getFile());
     }
 
     public function testMediaChangingAlbum(): void

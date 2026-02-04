@@ -4,6 +4,7 @@ namespace App\Tests\Unit\Entity;
 
 use App\Entity\Media;
 use App\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 
@@ -27,12 +28,22 @@ class UserTest extends TestCase
         $this->assertFalse($user->isAdmin());
         $this->assertContains('ROLE_USER', $user->getRoles());
         $this->assertEquals('test@test.com', $user->getUserIdentifier());
+        $this->assertCount(0, $user->getMedias());
+    }
+
+    public function testUserHasMedias(): void
+    {
+        $user = new User();
+        $media1 = new Media();
+        $media2 = new Media();
+        $collection = new ArrayCollection([$media1, $media2]);
+        $user->setMedias($collection);
+        $this->assertCount(2, $user->getMedias());
     }
 
     public function testNewUserHasDefaultValues(): void
     {
         $user = new User();
-        
         $this->assertNull($user->getId());
         $this->assertFalse($user->isAdmin());
         $this->assertContains('ROLE_USER', $user->getRoles());
