@@ -1,0 +1,30 @@
+<?php declare(strict_types=1);
+
+namespace App\Tests\Unit\Entity;
+
+use App\Entity\Album;
+use App\Entity\Media;
+use App\Entity\User;
+use PHPUnit\Framework\TestCase;
+
+class MediaTest extends TestCase
+{
+
+    public function testMediaGettersAndSetters(): void
+    {
+        $user = new User();
+        $media = new Media();
+        $album = new Album();
+        
+        $media->setTitle("Titre de test");
+        $media->setUser($user);
+        $media->setAlbum($album);
+        $media->setPath('images/0001.jpg');
+        
+        $this->assertNull($media->getId());
+        $this->assertEquals('Titre de test', $media->getTitle());
+        $this->assertEquals($user, $media->getUser());
+        $this->assertEquals($album, $media->getAlbum());
+        $this->assertEquals('images/0001.jpg', $media->getPath());
+    }
+}

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Tests;
 
@@ -18,7 +18,6 @@ class DatabaseTest extends KernelTestCase
     public function testDatabaseConnection(): void
     {
         $connection = $this->entityManager->getConnection();
-        // Exécute une requête simple pour établir la connexion sans utiliser connect()
         $connection->executeQuery('SELECT 1');
         $this->assertTrue($connection->isConnected());
     }

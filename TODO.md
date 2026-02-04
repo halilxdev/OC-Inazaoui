@@ -59,17 +59,32 @@ Si connectée, header affiche `Back-office` au lieu de connexion.
 
 Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la base de données.
 
-## Étape 3 - Fixtures — 23/01/2026
+## Étape 3 - Fixtures & Accessibilité — 23/01/2026  
 
 - [x] Création complète des Fixtures  
 - Dans le back-office :  
 - [x] Bouton pour retourner sur le front-office  
 - [x] Bouton pour se déconnecter  
 - [x] Bouton pour retourner sur la page d'accueil depuis login  
+
+## Étape 5 - Tests unitaires — 04/02/2026  
+
+- 
+
+## Étape 6 - Tests fonctionnels — 04/02/2026  
+
+
+
+## Étape 7 - Intégration continue — 04/02/2026  
+
+
+
+## Étape 8 - Fonctionnalités — xx/02/2026 
+
 - Route administration->invités
-    - [ ] Ajout d'invité
-    - [ ] Révocation invité
-    - [ ] Suppression invité avec suppression en cascade des médias
+    - [ ] Ajout d'invité  
+    - [ ] Révocation invité  
+    - [ ] Suppression invité avec suppression en cascade des médias  
 
 - [ ] Utiliser un profiler pour les lenteurs (sur la page Invités spécialement)  
 
