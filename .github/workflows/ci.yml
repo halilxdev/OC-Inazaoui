@@ -3,23 +3,24 @@ name: CI
 on:
   push:
     branches: [main]
-  # pull_request:
-  #   branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   tests:
     runs-on: ubuntu-latest
     
     services:
-      mysql:
-        image: mysql:8.0
+      postgres:
+        image: postgres:16
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: test_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
         ports:
-          - 3306:3306
+          - 5432:5432
         options: >-
-          --health-cmd="mysqladmin ping"
+          --health-cmd="pg_isready"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=3
@@ -32,7 +33,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          extensions: mbstring, xml, pdo_mysql
+          extensions: mbstring, xml, pdo_pgsql
           coverage: xdebug
       
       - name: 📦 Install dependencies
@@ -40,15 +41,15 @@ jobs:
       
       - name: 🗄️ Setup database
         run: |
-          php bin/console doctrine:database:create --env=test
+          php bin/console doctrine:database:create --env=test --if-not-exists
           php bin/console doctrine:migrations:migrate --no-interaction --env=test
         env:
-          DATABASE_URL: mysql://root:root@127.0.0.1:3306/test_db
+          DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/test_db?serverVersion=16&charset=utf8
       
       - name: 🧪 Run PHPUnit tests
         run: php bin/phpunit --coverage-text
         env:
-          DATABASE_URL: mysql://root:root@127.0.0.1:3306/test_db
+          DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/test_db?serverVersion=16&charset=utf8
       
       - name: 🔍 PHP CS Fixer (style)
         run: vendor/bin/php-cs-fixer fix --dry-run --diff
