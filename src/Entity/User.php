@@ -41,7 +41,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $medias;
 
     #[ORM\Column]
-    private ?bool $access = false;
+    private bool $access = false;
 
     public function __construct()
     {

@@ -20,6 +20,7 @@ class UserTest extends TestCase
         $user->setDescription('Dev PHP');
         $user->setPassword('hashed_password');
         $user->setAdmin(false);
+        $user->setAccess(true);
         
         $this->assertEquals('test@test.com', $user->getEmail());
         $this->assertEquals('Halil', $user->getName());
@@ -29,6 +30,7 @@ class UserTest extends TestCase
         $this->assertContains('ROLE_USER', $user->getRoles());
         $this->assertEquals('test@test.com', $user->getUserIdentifier());
         $this->assertCount(0, $user->getMedias());
+        $this->assertTrue($user->isAccess());
     }
 
     public function testUserHasMedias(): void

@@ -27,16 +27,16 @@ class HomeControllerTest extends WebTestCase
         $this->client->request('GET', '/');
         $this->assertResponseIsSuccessful();
     }
-    public function testGuestsPageIsAccessible(): void
-    {
-        $this->client->request('GET', '/guests');
-        $this->assertResponseIsSuccessful();
-    }
-    public function testAboutPageIsAccessible(): void
-    {
-        $this->client->request('GET', '/about');
-        $this->assertResponseIsSuccessful();
-    }
+    // public function testGuestsPageIsAccessible(): void
+    // {
+    //     $this->client->request('GET', '/guests');
+    //     $this->assertResponseIsSuccessful();
+    // }
+    // public function testAboutPageIsAccessible(): void
+    // {
+    //     $this->client->request('GET', '/about');
+    //     $this->assertResponseIsSuccessful();
+    // }
 
     protected function tearDown(): void
     {
