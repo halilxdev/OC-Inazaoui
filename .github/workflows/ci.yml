@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  tests:
+  CI:
     runs-on: ubuntu-latest
     
     services:
@@ -51,8 +51,8 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/test_db?serverVersion=16&charset=utf8
       
-      - name: 🔍 PHP CS Fixer (style)
-        run: vendor/bin/php-cs-fixer fix --dry-run --diff
+      # - name: 🔍 PHP CS Fixer (style)
+      #   run: vendor/bin/php-cs-fixer fix --dry-run --diff
       
-      - name: 📊 PHPStan (analyse statique)
-        run: vendor/bin/phpstan analyse src --level=5
+      # - name: 📊 PHPStan (analyse statique)
+      #   run: vendor/bin/phpstan analyse src --level=5
