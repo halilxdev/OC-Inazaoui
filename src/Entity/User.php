@@ -40,6 +40,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Media::class, mappedBy: 'user')]
     private Collection $medias;
 
+    #[ORM\Column]
+    private ?bool $access = false;
+
     public function __construct()
     {
         $this->medias = new ArrayCollection();
@@ -136,5 +139,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         $this->password = null;
+    }
+
+    public function isAccess(): ?bool
+    {
+        return $this->access;
+    }
+
+    public function setAccess(bool $access): static
+    {
+        $this->access = $access;
+
+        return $this;
     }
 }
