@@ -70,14 +70,16 @@ Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la 
 ## Étape 5 - Tests unitaires — 04/02/2026  
 
 - [x] Réalisation des tests unitaires sur toutes les entités  
+- [x] Ajout d'une colonne access à l'entité User pour gérer les accès invités.  
+- [ ] Tests unitaires sur les Repository  
 
-## Étape 6 - Tests fonctionnels — 05/02/2026  
+## Étape 6 - Tests fonctionnels — xx/02/2026  
 
-- [x] Ajout d'une colonne access à l'entité User pour gérer les accès invités.
 - [ ] Test de toutes les routes existantes  
+- [ ] Test Crawler  
 - [ ] Test des routes à mettre en place dans le futur (Ajout d'invité, Révocation d'invité, Suppression d'invités)  
 
-## Étape 7 - Intégration continue — 04/02/2026  
+## Étape 7 - Intégration continue — xx/02/2026  
 
 
 

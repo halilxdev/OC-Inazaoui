@@ -1,49 +1,47 @@
 <?php declare(strict_types=1);
 
-// namespace App\Tests\Repository;
+namespace App\Tests\Repository;
 
-// use App\Entity\User;
-// use App\Repository\UserRepository;
-// use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\Entity\User;
+use App\Repository\AlbumRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
+use Proxies\__CG__\App\Entity\Album;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-// class AlbumRepositoryTest extends KernelTestCase
-// {
-//     private ?UserRepository $repository = null;
+class AlbumRepositoryTest extends KernelTestCase
+{
 
-//     protected function setUp(): void
-//     {
-//         self::bootKernel();
-//         $this->repository = static::getContainer()->get(UserRepository::class);
-//     }
+    private ?UserRepository $repository = null;
+    private ?EntityManager $entityManager = null;
 
-//     public function testFindByEmail(): void
-//     {
-//         // Arrange : créer un user en base (via fixtures ou directement)
-//         $user = $this->repository->findOneBy(['email' => 'test@example.com']);
+    protected function setUp(): void
+    {
+        self::bootKernel();
+        $this->repository = static::getContainer()->get(UserRepository::class);
+        $this->entityManager = static::getContainer()->get('doctrine')->getManager();
+    }
 
-//         // Assert
-//         $this->assertInstanceOf(User::class, $user);
-//         $this->assertSame('test@example.com', $user->getEmail());
-//     }
+    public function testConstruct(): void
+    {
+        $managerRegistry = $this->createMock(ManagerRegistry::class);
+        $albumRepository = new AlbumRepository($managerRegistry);
+        $this->assertNotNull($albumRepository);
+    }
 
-//     public function testSaveAndRemove(): void
-//     {
-//         $entityManager = static::getContainer()->get('doctrine')->getManager();
+    public function testFindByTitle(): void
+    {
+        $album = new Album();
+        $album->setName("Test");
+        $this->assertInstanceOf(Album::class, $album);
+        $this->assertSame('Test', $album->getName());
+    }
 
-//         // Créer
-//         $user = new User();
-//         $user->setEmail('new@test.com');
-//         $user->setPassword('hashed');
-//         $user->setAccess(true);
-
-//         $this->repository->save($user, true);
-
-//         // Vérifier qu'il existe
-//         $found = $this->repository->find($user->getId());
-//         $this->assertNotNull($found);
-
-//         // Supprimer
-//         $this->repository->remove($user, true);
-//         $this->assertNull($this->repository->find($user->getId()));
-//     }
-// }
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        $this->repository = null;
+        $this->entityManager = null;
+    }
+}

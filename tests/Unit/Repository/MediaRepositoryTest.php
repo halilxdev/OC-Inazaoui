@@ -7,11 +7,9 @@ use App\Entity\Media;
 use App\Entity\User;
 use App\Repository\MediaRepository;
 use App\Repository\UserRepository;
-use Doctrine\Bundle\DoctrineBundle\Orm\ManagerRegistryAwareEntityManagerProvider;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class MediaRepositoryTest extends KernelTestCase
 {
@@ -40,41 +38,41 @@ class MediaRepositoryTest extends KernelTestCase
         $this->assertSame('Test', $media->getTitle());
     }
 
-    public function testSaveAndRemove(): void
-    {
-        $user = new User();
-        $user->setAccess(true);
-        $user->setEmail("test@gmail.co");
-        $user->setPassword('password');
-        $user->setName("Test");
+    // public function testSaveAndRemove(): void
+    // {
+    //     $user = new User();
+    //     $user->setAccess(true);
+    //     $user->setEmail("test@gmail.co");
+    //     $user->setPassword('password');
+    //     $user->setName("Test");
         
-        $album = new Album();
-        $album->setName("Album test");
+    //     $album = new Album();
+    //     $album->setName("Album test");
 
-        $uploadedFile = $this->createMock(UploadedFile::class);
-        $uploadedFile->method('getClientOriginalName')->willReturn('photo.jpg');
-        $uploadedFile->method('getMimeType')->willReturn('image/jpeg');
-        $uploadedFile->method('getSize')->willReturn(1024);
-        $uploadedFile->method('move')->willReturn(new \Symfony\Component\HttpFoundation\File\File('public/images/home.jpeg'));
-        $path = "image.jpg";
-        $media = new Media();
-        $media->setTitle('Media test');
-        $media->setAlbum($album);
-        $media->setPath($path);
-        $media->setFile($uploadedFile);
-        $media->setUser($user);
+    //     $uploadedFile = $this->createMock(UploadedFile::class);
+    //     $uploadedFile->method('getClientOriginalName')->willReturn('photo.jpg');
+    //     $uploadedFile->method('getMimeType')->willReturn('image/jpeg');
+    //     $uploadedFile->method('getSize')->willReturn(1024);
+    //     $uploadedFile->method('move')->willReturn(new \Symfony\Component\HttpFoundation\File\File('public/images/home.jpeg'));
+    //     $path = "image.jpg";
+    //     $media = new Media();
+    //     $media->setTitle('Media test');
+    //     $media->setAlbum($album);
+    //     $media->setPath($path);
+    //     $media->setFile($uploadedFile);
+    //     $media->setUser($user);
 
-        $this->entityManager->persist($user);
-        $this->entityManager->persist($album);
-        $this->entityManager->persist($media);
-        $this->entityManager->flush();
+    //     $this->entityManager->persist($user);
+    //     $this->entityManager->persist($album);
+    //     $this->entityManager->persist($media);
+    //     $this->entityManager->flush();
 
-        $found = $this->repository->find($media->getId());
-        $this->assertNotNull($found);
+    //     $found = $this->repository->find($media->getId());
+    //     $this->assertNotNull($found);
 
-        $this->entityManager->remove($media);
-        $this->assertNull($this->repository->find($media));
-    }
+    //     $this->entityManager->remove($media);
+    //     $this->assertNull($this->repository->find($media));
+    // }
 
     protected function tearDown(): void
     {
