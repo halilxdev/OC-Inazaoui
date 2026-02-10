@@ -6,6 +6,7 @@ use App\Entity\Media;
 use App\Form\MediaType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -44,13 +45,23 @@ class MediaController extends AbstractController
     }
 
     #[Route(path: '/admin/media/add', name: 'admin_media_add')]
-    public function add(Request $request)
+    public function add(
+        Request $request,
+        #[MapUploadedFile([
+            new Assert\File(mimeTypes: ['image/png', 'image/jpeg']),
+            new Assert\Image(maxWidth: 3840, maxHeight: 2160),
+            new Assert\File(maxSize: '2M')
+        ])] UploadedFile $picture = null,
+    )
     {
         $media = new Media();
         $form = $this->createForm(MediaType::class, $media, ['is_admin' => $this->isGranted('ROLE_ADMIN')]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // Vérification du fichier uploadé
+
             if (!$this->isGranted('ROLE_ADMIN')) {
                 $media->setUser($this->getUser());
             }

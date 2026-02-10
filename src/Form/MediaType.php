@@ -17,6 +17,7 @@ class MediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            // Vérification du fichier uploadé
             ->add('file', FileType::class, [
                 'label' => 'Image',
             ])
