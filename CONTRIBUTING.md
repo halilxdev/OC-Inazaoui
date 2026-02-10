@@ -1,0 +1,3 @@
+- `feature/` → nouvelle fonctionnalité (ex: feature/upload-media)  
+- `fix/` → correction de bug (ex: fix/upload-media)  
+- `refactor/` → refactorisation sans changement fonctionnel  

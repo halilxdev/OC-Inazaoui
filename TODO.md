@@ -69,28 +69,32 @@ Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la 
 
 ## Étape 5 - Tests unitaires — 04/02/2026  
 
+- [x] Intégration d'un script d'intégration continue sur chaque push dans la branche main  
 - [x] Réalisation des tests unitaires sur toutes les entités  
 - [x] Ajout d'une colonne access à l'entité User pour gérer les accès invités.  
 - [x] Tests unitaires sur les Repository  
+
+## Étape 6 - Tests fonctionnels — 08/02/2026  
+
 - [x] Tests unitaires sur les Form  
+- [x] Tests de toutes les routes Front-Office existantes  
+- [x] Tests Crawler  
 
-## Étape 6 - Tests fonctionnels — xx/02/2026  
+## Étape 7 - Vérification de l'upload — 10/02/2026 
 
-- [ ] Test de toutes les routes existantes  
-- [ ] Test Crawler  
-- [ ] Test des routes à mettre en place dans le futur (Ajout d'invité, Révocation d'invité, Suppression d'invités)  
-
-## Étape 7 - Intégration continue — xx/02/2026  
-
-
-
-## Étape 8 - Fonctionnalités — xx/02/2026 
-
-- Route administration->invités
+- [ ] Vérification des fichiers uploadés  
+- [ ] Route administration->invités  
     - [ ] Ajout d'invité  
     - [ ] Révocation invité  
     - [ ] Suppression invité avec suppression en cascade des médias  
 
+## Étape 7 - Fonctionnalités — xx/02/2026 
+
+- [ ] Vérification des fichiers uploadés  
+- [ ] Route administration->invités  
+    - [ ] Ajout d'invité  
+    - [ ] Révocation invité  
+    - [ ] Suppression invité avec suppression en cascade des médias  
 
 ## TO-DO LATER
 
