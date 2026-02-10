@@ -25,7 +25,7 @@ class HomeController extends AbstractController
     #[Route('/guests', name: 'guests')]
     public function guests()
     {
-        $guests = $this->entityManager->getRepository(User::class)->findBy(['admin' => false]);
+        $guests = $this->entityManager->getRepository(User::class)->findBy(['admin' => false, 'access' => true]);
         return $this->render('front/guests.html.twig', [
             'guests' => $guests
         ]);
@@ -35,6 +35,9 @@ class HomeController extends AbstractController
     public function guest(int $id)
     {
         $guest = $this->entityManager->getRepository(User::class)->find($id);
+        if (!$guest) {
+            throw $this->createNotFoundException();
+        }
         return $this->render('front/guest.html.twig', [
             'guest' => $guest
         ]);
@@ -45,11 +48,12 @@ class HomeController extends AbstractController
     {
         $albums = $this->entityManager->getRepository(Album::class)->findAll();
         $album = $id ? $this->entityManager->getRepository(Album::class)->find($id) : null;
-        $user = $this->entityManager->getRepository(User::class)->findOneByAdmin(true);
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(["admin"=>true,"access"=>true]);
 
         $medias = $album
             ? $this->entityManager->getRepository(Media::class)->findByAlbum($album)
             : $this->entityManager->getRepository(Media::class)->findByUser($user);
+
         return $this->render('front/portfolio.html.twig', [
             'albums' => $albums,
             'album' => $album,

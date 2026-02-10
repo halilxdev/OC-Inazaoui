@@ -31,6 +31,7 @@
         <exclude>
             <directory>src/DataFixtures</directory>
             <directory>src/Kernel.php</directory>
+            <directory>src/Controller/Admin/</directory>
         </exclude>
     </coverage>
 

@@ -71,7 +71,8 @@ Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la 
 
 - [x] Réalisation des tests unitaires sur toutes les entités  
 - [x] Ajout d'une colonne access à l'entité User pour gérer les accès invités.  
-- [ ] Tests unitaires sur les Repository  
+- [x] Tests unitaires sur les Repository  
+- [x] Tests unitaires sur les Form  
 
 ## Étape 6 - Tests fonctionnels — xx/02/2026  
 

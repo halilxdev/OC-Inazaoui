@@ -26,27 +26,27 @@ jobs:
           --health-retries=3
     
     steps:
-      - name: 📥 Checkout code
+      - name: Vérification du code
         uses: actions/checkout@v4
       
-      - name: 🐘 Setup PHP
+      - name: Configuration PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
           extensions: mbstring, xml, pdo_pgsql
           coverage: xdebug
       
-      - name: 📦 Install dependencies
+      - name: Installation des dépendances
         run: composer install --prefer-dist --no-progress
       
-      - name: 🗄️ Setup database
+      - name: Configuration de la base de données en PostgreSQL
         run: |
           php bin/console doctrine:database:create --env=test --if-not-exists
           php bin/console doctrine:migrations:migrate --no-interaction --env=test
         env:
           DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/test_db?serverVersion=16&charset=utf8
       
-      - name: 🧪 Run PHPUnit tests
+      - name: Lancement des tests PHPUnit
         run: php bin/phpunit --coverage-text
         env:
           DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/test_db?serverVersion=16&charset=utf8

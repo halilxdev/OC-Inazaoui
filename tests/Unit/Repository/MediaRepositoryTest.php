@@ -38,42 +38,6 @@ class MediaRepositoryTest extends KernelTestCase
         $this->assertSame('Test', $media->getTitle());
     }
 
-    // public function testSaveAndRemove(): void
-    // {
-    //     $user = new User();
-    //     $user->setAccess(true);
-    //     $user->setEmail("test@gmail.co");
-    //     $user->setPassword('password');
-    //     $user->setName("Test");
-        
-    //     $album = new Album();
-    //     $album->setName("Album test");
-
-    //     $uploadedFile = $this->createMock(UploadedFile::class);
-    //     $uploadedFile->method('getClientOriginalName')->willReturn('photo.jpg');
-    //     $uploadedFile->method('getMimeType')->willReturn('image/jpeg');
-    //     $uploadedFile->method('getSize')->willReturn(1024);
-    //     $uploadedFile->method('move')->willReturn(new \Symfony\Component\HttpFoundation\File\File('public/images/home.jpeg'));
-    //     $path = "image.jpg";
-    //     $media = new Media();
-    //     $media->setTitle('Media test');
-    //     $media->setAlbum($album);
-    //     $media->setPath($path);
-    //     $media->setFile($uploadedFile);
-    //     $media->setUser($user);
-
-    //     $this->entityManager->persist($user);
-    //     $this->entityManager->persist($album);
-    //     $this->entityManager->persist($media);
-    //     $this->entityManager->flush();
-
-    //     $found = $this->repository->find($media->getId());
-    //     $this->assertNotNull($found);
-
-    //     $this->entityManager->remove($media);
-    //     $this->assertNull($this->repository->find($media));
-    // }
-
     protected function tearDown(): void
     {
         parent::tearDown();
