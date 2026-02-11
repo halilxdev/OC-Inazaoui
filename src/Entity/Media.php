@@ -18,7 +18,7 @@ class Media
     #[ORM\JoinColumn(onDelete: "CASCADE")]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(targetEntity: Album::class, fetch: "EAGER")]
+    #[ORM\ManyToOne(targetEntity: Album::class, inversedBy: "medias", fetch: "EAGER")]
     #[ORM\JoinColumn(onDelete: "CASCADE")]
     private ?Album $album = null;
 
