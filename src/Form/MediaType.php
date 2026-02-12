@@ -28,6 +28,8 @@ class MediaType extends AbstractType
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',
+                            'image/gif',
+                            'image/webp',
                         ],
                         'mimeTypesMessage' => 'L\'image doit être de type jpg ou png',
                         'maxSizeMessage' => 'Fichier trop volumineux ({{ size }} {{ suffix }}). La taille maximum autorisée est {{ limit }}{{ suffix }}',

@@ -68,7 +68,19 @@ class GuestController extends AbstractController
         $this->entityManager->remove($media);
         $this->entityManager->flush();
         unlink($media->getPath());
+        return $this->redirectToRoute('admin_guests_index');
+    }
 
-        return $this->redirectToRoute('admin_media_index');
+    #[Route(path: '/admin/guests/toggle-access/{id}', name: 'admin_guests_toggle_access')]
+    public function toggleAccess(int $id)
+    {
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $access = $user->isAccess();
+        if($access){ $user->setAccess(false); }
+        else{ $user->setAccess(true); }
+
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('admin_guests_index');
     }
 }

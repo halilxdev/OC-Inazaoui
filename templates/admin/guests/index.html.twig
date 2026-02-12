@@ -16,11 +16,25 @@
         <tbody>
             {% for user in users %}
                 <tr>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.name }}</td> {# COMPTER LE NOMBRE DE MEDIAS #}
+                    <td {% if user.access == false %}class="opacity-25"{% endif %}>{{ user.name }}</td>
+                    <td {% if user.access == false %}class="opacity-25"{% endif %}>{{ user.medias.count }} médias</td> {# COMPTER LE NOMBRE DE MEDIAS #}
                     <td>
-                        <a href="{{ path('admin_guests_delete', {id: user.id}) }}" class="btn px-2 py-1 btn-warning">Révoquer l'accès</a>
-                        <a href="{{ path('admin_guests_delete', {id: user.id}) }}" class="btn px-2 py-1 btn-danger">Supprimer</a>
+                        <a href="{{ path('admin_guests_toggle_access', {id: user.id}) }}"
+                            {% if user.access == false %}
+                                onclick="return confirm('Voulez-vous activer l\'accès de {{ user.name|e('js') }} ?')"
+                                class="btn px-2 py-1 bg-secondary text-light"
+                            {% else %}
+                                onclick="return confirm('Voulez-vous révoquer l\'accès de {{ user.name|e('js') }} ?')"
+                                class="btn px-2 py-1 btn-warning"
+                            {% endif %}
+                        >
+                            {% if user.access == false %}
+                                Activer l'accès
+                            {% else %}
+                                Révoquer l'accès
+                            {% endif %}
+                        </a>
+                        <a href="{{ path('admin_guests_delete', {id: user.id}) }}" class="btn px-2 py-1 btn-danger" onclick="return confirm('Voulez-vous supprimer {{ user.name|e('js') }} ?')">Supprimer</a>
                     </td>
                 </tr>
             {% endfor %}

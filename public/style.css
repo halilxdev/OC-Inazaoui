@@ -103,3 +103,9 @@ footer {
     line-height: 18.23px;
     text-align: right;
 }
+
+td.revokedAccess
+{
+    opacity: 0.6 !important;
+    color: red !important;
+}
