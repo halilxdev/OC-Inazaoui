@@ -16,11 +16,11 @@
         <tbody>
             {% for user in users %}
                 <tr>
-                    <td {% if user.access == false %}class="opacity-25"{% endif %}>{{ user.name }}</td>
-                    <td {% if user.access == false %}class="opacity-25"{% endif %}>{{ user.medias.count }} médias</td> {# COMPTER LE NOMBRE DE MEDIAS #}
+                    <td {% if user.roles.0 == "ROLE_DISABLED" %}class="opacity-25"{% endif %}>{{ user.name }}</td>
+                    <td {% if user.roles.0 == "ROLE_DISABLED" %}class="opacity-25"{% endif %}>{{ user.medias.count }} médias</td>
                     <td>
                         <a href="{{ path('admin_guests_toggle_access', {id: user.id}) }}"
-                            {% if user.access == false %}
+                            {% if user.roles.0 == "ROLE_DISABLED" %}
                                 onclick="return confirm('Voulez-vous activer l\'accès de {{ user.name|e('js') }} ?')"
                                 class="btn px-2 py-1 bg-secondary text-light"
                             {% else %}
@@ -28,7 +28,7 @@
                                 class="btn px-2 py-1 btn-warning"
                             {% endif %}
                         >
-                            {% if user.access == false %}
+                            {% if user.roles.0 == "ROLE_DISABLED" %}
                                 Activer l'accès
                             {% else %}
                                 Révoquer l'accès

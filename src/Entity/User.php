@@ -8,23 +8,28 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Webmozart\Assert\Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
+    private const ROLES =  [
+        'Admin' => "ROLE_ADMIN",
+        'GuestWithAccess' => 'ROLE_GUEST',
+        'GuestWithoutAccess' => 'ROLE_DISABLED'
+    ];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private bool $admin = false;
+    #[ORM\Column(type: 'simple_array', nullable: false)]
+    private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
     #[ORM\Column]
     private ?string $password = null;
 
@@ -40,13 +45,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Media::class, mappedBy: 'user')]
     private Collection $medias;
 
-    #[ORM\Column]
-    private bool $access = false;
-
     public function __construct()
     {
         $this->medias = new ArrayCollection();
-        $this->access = true;
     }
 
     public function getId(): ?int
@@ -96,16 +97,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->medias = $medias;
     }
 
-    public function isAdmin(): bool
-    {
-        return $this->admin;
-    }
-
-    public function setAdmin(bool $admin): void
-    {
-        $this->admin = $admin;
-    }
-
     /**
      * @see PasswordAuthenticatedUserInterface
      */
@@ -128,29 +119,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
-        $roles = ['ROLE_USER'];
-
-        if ($this->admin) {
-            $roles[] = 'ROLE_ADMIN';
-        }
-
+        $roles = $this->roles;
         return array_unique($roles);
+    }
+    public function setRoles(?array $roles): void
+    {
+        $this->roles = $roles;
     }
 
     public function eraseCredentials(): void
     {
         $this->password = null;
-    }
-
-    public function isAccess(): ?bool
-    {
-        return $this->access;
-    }
-
-    public function setAccess(bool $access): static
-    {
-        $this->access = $access;
-
-        return $this;
     }
 }

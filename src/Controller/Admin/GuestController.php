@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[IsGranted('IS_AUTHENTICATED_FULLY')]
+#[IsGranted('ROLE_ADMIN')]
 class GuestController extends AbstractController
 {
     public function __construct(
@@ -22,16 +22,16 @@ class GuestController extends AbstractController
     public function index(Request $request)
     {
         $page = $request->query->getInt('page', 1);
+        $allUsers = $this->entityManager->getRepository(User::class)->findAll();
 
-        $users = $this->entityManager->getRepository(User::class)->findBy(
-            ["admin" => false],
-            ['id' => 'ASC'],
-            25,
-            25 * ($page - 1)
-        );
-        // array_shift($users);
-        $total = $this->entityManager->getRepository(User::class)->count([]);
+        $filteredUsers = array_filter($allUsers, function($user) {
+            $roles = $user->getRoles();
+            return \in_array('ROLE_GUEST', $roles, true) || \in_array('ROLE_DISABLED', $roles, true);
+        });
+        usort($filteredUsers, fn($a, $b) => $a->getId() <=> $b->getId());
 
+        $total = \count($filteredUsers);
+        $users = \array_slice($filteredUsers, 25 * ($page - 1), 25);
         return $this->render('admin/guests/index.html.twig', [
             'users' => $users,
             'total' => $total,
@@ -64,10 +64,9 @@ class GuestController extends AbstractController
     #[Route(path: '/admin/guests/delete/{id}', name: 'admin_guests_delete')]
     public function delete(int $id)
     {
-        $media = $this->entityManager->getRepository(Media::class)->find($id);
-        $this->entityManager->remove($media);
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $this->entityManager->remove($user);
         $this->entityManager->flush();
-        unlink($media->getPath());
         return $this->redirectToRoute('admin_guests_index');
     }
 
@@ -75,11 +74,12 @@ class GuestController extends AbstractController
     public function toggleAccess(int $id)
     {
         $user = $this->entityManager->getRepository(User::class)->find($id);
-        $access = $user->isAccess();
-        if($access){ $user->setAccess(false); }
-        else{ $user->setAccess(true); }
-
-        $this->entityManager->persist($user);
+        $currentRoles = $user->getRoles();
+        if (\in_array("ROLE_GUEST", $currentRoles, true)) {
+            $user->setRoles(["ROLE_DISABLED"]);
+        } else {
+            $user->setRoles(["ROLE_GUEST"]);
+        }
         $this->entityManager->flush();
         return $this->redirectToRoute('admin_guests_index');
     }

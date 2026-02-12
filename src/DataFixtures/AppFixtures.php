@@ -5,11 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Album;
 use App\Entity\Media;
 use App\Entity\User;
-use App\Repository\AlbumRepository;
-use App\Repository\UserRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -24,12 +20,11 @@ class AppFixtures extends Fixture
     {
         // Admin User
         $user = new User();
-        $user->setAdmin(true);
-        $user->setName('ina');
         $user->setEmail('inazaoui@gmail.com');
-        $user->setDescription('');
+        $user->setName("Ina Zaoui");
+        $user->setDescription('Propriétaire du site.');
         $user->setPassword($this->passwordHasher->hashPassword($user, 'password'));
-        $user->setAccess(true);
+        $user->setRoles(["ROLE_ADMIN"]);
 
         $manager->persist($user);
         
@@ -37,11 +32,11 @@ class AppFixtures extends Fixture
         for($i = 0; $i <= 99; $i++)
         {
             $user = new User();
-            $user->setAdmin(false);
             $user->setName("Invité {$i}");
             $user->setEmail("invite+{$i}@example.com");
             $user->setDescription("Le maître de l''urbanité capturée, explore les méandres des cités avec un regard vif et impétueux, figeant l''énergie des rues dans des instants éblouissants. À travers une technique avant-gardiste, il métamorphose le béton et l''acier en toiles abstraites");
             $user->setPassword($this->passwordHasher->hashPassword($user, 'password'));
+            $user->setRoles(["ROLE_GUEST"]);
 
             $manager->persist($user);
         }
@@ -64,7 +59,7 @@ class AppFixtures extends Fixture
         $albums = $manager->getRepository(Album::class)->findAll();
 
         // Medias
-        for($i = 1; $i <= 5050; $i++)
+        for($i = 1; $i <= 1000; $i++)
         {
             $media = new Media();
             $media->setPath("uploads/" . str_pad($i, 4, '0', STR_PAD_LEFT) . ".jpg");
