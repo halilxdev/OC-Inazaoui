@@ -25,7 +25,13 @@ class HomeController extends AbstractController
     #[Route('/guests', name: 'guests')]
     public function guests()
     {
-        $guests = $this->entityManager->getRepository(User::class)->findBy(['admin' => false, 'access' => true]);
+        $allUsers = $this->entityManager->getRepository(User::class)->findAll();
+        $guests = array_filter($allUsers, function($user) {
+            $roles = $user->getRoles();
+            return \in_array('ROLE_GUEST', $roles, true) || \in_array('ROLE_DISABLED', $roles, true);
+        });
+        usort($guests, fn($a, $b) => $a->getId() <=> $b->getId());
+
         return $this->render('front/guests.html.twig', [
             'guests' => $guests
         ]);
@@ -48,7 +54,7 @@ class HomeController extends AbstractController
     {
         $albums = $this->entityManager->getRepository(Album::class)->findAll();
         $album = $id ? $this->entityManager->getRepository(Album::class)->find($id) : null;
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(["admin"=>true,"access"=>true]);
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(["email"=>"inazaoui@gmail.com"]);
 
         $medias = $album
             ? $this->entityManager->getRepository(Media::class)->findByAlbum($album)

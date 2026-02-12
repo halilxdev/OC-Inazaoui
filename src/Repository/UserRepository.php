@@ -40,56 +40,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
-    /**
-     * Find users by roles with pagination
-     */
-    public function findByRolesPaginated(array $roles, int $page = 1, int $limit = 25): array
-    {
-        $offset = ($page - 1) * $limit;
-
-        // Pour PostgreSQL avec JSON
-        $conn = $this->getEntityManager()->getConnection();
-        $sql = "
-            SELECT * FROM \"user\" u
-            WHERE u.roles::jsonb ?| :roles
-            ORDER BY u.id ASC
-            LIMIT :limit OFFSET :offset
-        ";
-
-        $stmt = $conn->prepare($sql);
-        $result = $stmt->executeQuery([
-            'roles' => '{' . implode(',', $roles) . '}',
-            'limit' => $limit,
-            'offset' => $offset
-        ]);
-
-        $users = [];
-        foreach ($result->fetchAllAssociative() as $row) {
-            $users[] = $this->getEntityManager()->getRepository(User::class)->find($row['id']);
-        }
-
-        return $users;
-    }
-
-    /**
-     * Count users by roles
-     */
-    public function countByRoles(array $roles): int
-    {
-        $conn = $this->getEntityManager()->getConnection();
-        $sql = "
-            SELECT COUNT(*) as total FROM \"user\" u
-            WHERE u.roles::jsonb ?| :roles
-        ";
-
-        $stmt = $conn->prepare($sql);
-        $result = $stmt->executeQuery([
-            'roles' => '{' . implode(',', $roles) . '}'
-        ]);
-
-        return (int) $result->fetchOne();
-    }
-
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

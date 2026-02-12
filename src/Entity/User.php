@@ -48,6 +48,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->medias = new ArrayCollection();
+        $this->roles = ["ROLE_GUEST"];
     }
 
     public function getId(): ?int

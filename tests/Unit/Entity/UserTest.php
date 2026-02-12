@@ -19,18 +19,15 @@ class UserTest extends TestCase
         $user->setName('Halil');
         $user->setDescription('Dev PHP');
         $user->setPassword('hashed_password');
-        $user->setAdmin(false);
-        $user->setAccess(true);
+        $user->setRoles(["ROLE_GUEST"]);
         
         $this->assertEquals('test@test.com', $user->getEmail());
         $this->assertEquals('Halil', $user->getName());
         $this->assertEquals('Dev PHP', $user->getDescription());
         $this->assertEquals('hashed_password', $user->getPassword());
-        $this->assertFalse($user->isAdmin());
-        $this->assertContains('ROLE_USER', $user->getRoles());
+        $this->assertEquals(["ROLE_GUEST"], $user->getRoles());
         $this->assertEquals('test@test.com', $user->getUserIdentifier());
         $this->assertCount(0, $user->getMedias());
-        $this->assertTrue($user->isAccess());
     }
 
     public function testUserHasMedias(): void
@@ -47,17 +44,16 @@ class UserTest extends TestCase
     {
         $user = new User();
         $this->assertNull($user->getId());
-        $this->assertFalse($user->isAdmin());
-        $this->assertContains('ROLE_USER', $user->getRoles());
+        $this->assertEquals(["ROLE_GUEST"], $user->getRoles());
     }
     
     public function testUserCanBePromotedToAdmin(): void
     {
         $user = new User();
         
-        $user->setAdmin(true);
+        $user->setRoles(["ROLE_ADMIN"]);
         
-        $this->assertTrue($user->isAdmin());
+        $this->assertEquals(["ROLE_ADMIN"], $user->getRoles());
         $this->assertContains('ROLE_ADMIN', $user->getRoles());
     }
     
