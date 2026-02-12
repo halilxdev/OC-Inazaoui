@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Media;
+use App\Entity\User;
 use App\Form\MediaType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,33 +18,28 @@ class GuestController extends AbstractController
         private EntityManagerInterface $entityManager
     ){}
 
-    #[Route(path: '/admin/guests', name: 'admin_guest_index')]
+    #[Route(path: '/admin/guests', name: 'admin_guests_index')]
     public function index(Request $request)
     {
         $page = $request->query->getInt('page', 1);
 
-        $criteria = [];
-
-        if (!$this->isGranted('ROLE_ADMIN')) {
-            $criteria['user'] = $this->getUser();
-        }
-
-        $medias = $this->entityManager->getRepository(Media::class)->findBy(
-            $criteria,
+        $users = $this->entityManager->getRepository(User::class)->findBy(
+            ["admin" => false],
             ['id' => 'ASC'],
             25,
             25 * ($page - 1)
         );
-        $total = $this->entityManager->getRepository(Media::class)->count([]);
+        // array_shift($users);
+        $total = $this->entityManager->getRepository(User::class)->count([]);
 
-        return $this->render('admin/media/index.html.twig', [
-            'medias' => $medias,
+        return $this->render('admin/guests/index.html.twig', [
+            'users' => $users,
             'total' => $total,
             'page' => $page
         ]);
     }
 
-    #[Route(path: '/admin/guests/add', name: 'admin_media_add')]
+    #[Route(path: '/admin/guests/add', name: 'admin_guests_add')]
     public function add(Request $request)
     {
         $media = new Media();
@@ -62,10 +58,10 @@ class GuestController extends AbstractController
             return $this->redirectToRoute('admin_media_index');
         }
 
-        return $this->render('admin/media/add.html.twig', ['form' => $form->createView()]);
+        return $this->render('admin/guests/add.html.twig', ['form' => $form->createView()]);
     }
 
-    #[Route(path: '/admin/guests/delete/{id}', name: 'admin_media_delete')]
+    #[Route(path: '/admin/guests/delete/{id}', name: 'admin_guests_delete')]
     public function delete(int $id)
     {
         $media = $this->entityManager->getRepository(Media::class)->find($id);

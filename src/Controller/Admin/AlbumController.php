@@ -23,7 +23,6 @@ class AlbumController extends AbstractController
     public function index()
     {
         $albums = $this->entityManager->getRepository(Album::class)->findAll();
-
         return $this->render('admin/album/index.html.twig', ['albums' => $albums]);
     }
 

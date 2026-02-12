@@ -84,9 +84,10 @@ Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la 
 
 - [ ] Vérification des fichiers uploadés  
     - [ ] Utilisation de `Validation`  
-    - [ ] Format d'image obligatoire  
-    - [ ] Poids n'excédant pas 2Mo  
+    - [x] Format d'image obligatoire  
+    - [x] Poids n'excédant pas 2Mo  
 - [ ] Route administration->invités  
+    - [ ] Trouver une meilleure façon d'indexer la liste des invités sans l'admin
     - [ ] Ajout d'invité  
     - [ ] Révocation invité  
     - [ ] Suppression invité avec suppression en cascade des médias  
