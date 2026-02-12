@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class MediaType extends AbstractType
 {
@@ -20,6 +22,20 @@ class MediaType extends AbstractType
             // Vérification du fichier uploadé
             ->add('file', FileType::class, [
                 'label' => 'Image',
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'L\'image doit être de type jpg ou png',
+                        'maxSizeMessage' => 'Fichier trop volumineux ({{ size }} {{ suffix }}). La taille maximum autorisée est {{ limit }}{{ suffix }}',
+                    ]),
+                    new NotBlank([
+                        'message' => 'Vous devez sélectionner un fichier',
+                    ])
+                ]
             ])
             ->add('title', TextType::class, [
                 'label' => 'Titre',

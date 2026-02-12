@@ -28,6 +28,10 @@ class Media
     #[ORM\Column]
     private string $title;
 
+    #[Assert\UploadedFile(
+        maxSize: '2M',         // 2 Mégaoctets = 16 Mégabits
+        maxSizeMessage: 'L\image est trop volumineuse. Veuillez la rétrécir ou en choisir une autre.',
+    )]
     private ?UploadedFile $file = null;
 
     public function getId(): ?int

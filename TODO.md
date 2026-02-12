@@ -83,6 +83,7 @@ Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la 
 ## Étape 7 - Vérification de l'upload — 10/02/2026 
 
 - [ ] Vérification des fichiers uploadés  
+    - [ ] Utilisation de `Validation`  
     - [ ] Format d'image obligatoire  
     - [ ] Poids n'excédant pas 2Mo  
 - [ ] Route administration->invités  

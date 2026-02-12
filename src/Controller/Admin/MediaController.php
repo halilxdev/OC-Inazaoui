@@ -47,11 +47,11 @@ class MediaController extends AbstractController
     #[Route(path: '/admin/media/add', name: 'admin_media_add')]
     public function add(
         Request $request,
-        #[MapUploadedFile([
-            new Assert\File(mimeTypes: ['image/png', 'image/jpeg']),
-            new Assert\Image(maxWidth: 3840, maxHeight: 2160),
-            new Assert\File(maxSize: '2M')
-        ])] UploadedFile $picture = null,
+        // #[MapUploadedFile([
+        //     new Assert\File(mimeTypes: ['image/png', 'image/jpeg']),
+        //     new Assert\Image(maxWidth: 3840, maxHeight: 2160),
+        //     new Assert\File(maxSize: '2M')
+        // ])] UploadedFile $picture = null,
     )
     {
         $media = new Media();
@@ -73,7 +73,10 @@ class MediaController extends AbstractController
             return $this->redirectToRoute('admin_media_index');
         }
 
-        return $this->render('admin/media/add.html.twig', ['form' => $form->createView()]);
+        return $this->render('admin/media/add.html.twig', 
+        [
+            'form' => $form->createView(),
+        ]);
     }
 
     #[Route(path: '/admin/media/delete/{id}', name: 'admin_media_delete')]
