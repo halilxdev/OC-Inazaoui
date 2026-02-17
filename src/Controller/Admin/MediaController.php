@@ -55,7 +55,16 @@ class MediaController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Vérification du fichier uploadé
+            // Vérification supplémentaire du mime type
+            $uploadedFile = $media->getFile();
+            $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+
+            if (!\in_array($uploadedFile->getMimeType(), $allowedMimeTypes)) {
+                $this->addFlash('error', 'Le type de fichier n\'est pas autorisé.');
+                return $this->render('admin/media/add.html.twig', [
+                    'form' => $form->createView(),
+                ]);
+            }
 
             if (!$this->isGranted('ROLE_ADMIN')) {
                 $media->setUser($this->getUser());
