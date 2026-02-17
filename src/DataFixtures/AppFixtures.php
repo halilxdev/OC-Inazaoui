@@ -29,7 +29,7 @@ class AppFixtures extends Fixture
         $manager->persist($user);
         
         // Bunch of Users
-        for($i = 0; $i <= 99; $i++)
+        for($i = 0; $i <= 10; $i++)
         {
             $user = new User();
             $user->setName("Invité {$i}");
@@ -59,7 +59,7 @@ class AppFixtures extends Fixture
         $albums = $manager->getRepository(Album::class)->findAll();
 
         // Medias
-        for($i = 1; $i <= 1000; $i++)
+        for($i = 1; $i <= 199; $i++)
         {
             $media = new Media();
             $media->setPath("uploads/" . str_pad($i, 4, '0', STR_PAD_LEFT) . ".jpg");

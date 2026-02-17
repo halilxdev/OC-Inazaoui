@@ -55,10 +55,9 @@ class HomeController extends AbstractController
         $albums = $this->entityManager->getRepository(Album::class)->findAll();
         $album = $id ? $this->entityManager->getRepository(Album::class)->find($id) : null;
         $user = $this->entityManager->getRepository(User::class)->findOneBy(["email"=>"inazaoui@gmail.com"]);
-
-        $medias = $album
-            ? $this->entityManager->getRepository(Media::class)->findByAlbum($album)
-            : $this->entityManager->getRepository(Media::class)->findByUser($user);
+        $medias = $album 
+            ? $this->entityManager->getRepository(Media::class)->findMediasByUserWithAccess($album)
+            : $this->entityManager->getRepository(Media::class)->findAllMediasByUserWithAccess();
 
         return $this->render('front/portfolio.html.twig', [
             'albums' => $albums,

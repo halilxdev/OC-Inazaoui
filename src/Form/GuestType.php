@@ -29,15 +29,7 @@ class GuestType extends AbstractType
             ->add('password', TextType::class, [
                 'label' => 'Mot de passe',
             ])
-            // ->add('roles', ChoiceType::class, [
-            //     'label' => 'Accès',
-            //     'choices'  => [
-            //         'Accès autorisé' => "ROLE_GUEST",
-            //         'Accès révoqué' => "ROLE_DISABLED",
-            //     ],
-            // ])
             ->add('roles', CollectionType::class, [
-                // each entry in the array will be an "email" field
                 'label' => 'Rôle',
                 'entry_type' => ChoiceType::class,
                 'entry_options'  => [

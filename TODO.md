@@ -90,16 +90,15 @@ Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la 
         - 
 - [ ] Route administration->invités  
     - [ ] Trouver une meilleure façon d'indexer la liste des invités sans l'admin
-    - [ ] Ajout d'invité  
-    - [ ] Révocation invité  
-    - [ ] Suppression invité avec suppression en cascade des médias  
+    - [x] Ajout d'invité  
+    - [x] Révocation invité  
+    - [x] Suppression invité avec suppression en cascade des médias  
 
-## Étape 7 - Fonctionnalités — xx/02/2026 
+## Étape 7 - Utilisateurs révoqués — 17/02/2026 
 
-- [ ] Route administration->invités  
-    - [ ] Ajout d'invité  
-    - [ ] Révocation invité  
-    - [ ] Suppression invité avec suppression en cascade des médias  
+- [x] Afficher les photos des utilisateurs qui ont comme rôle `ROLE_ADMIN` ou `ROLE_GUEST`  
+- [x] Autoriser la connexion des utilisateurs qui ont comme rôle `ROLE_ADMIN` ou `ROLE_GUEST`  
+- [ ] Ajouter le Form `GuestType` dans la code-coverage  
 
 ## TO-DO LATER
 
