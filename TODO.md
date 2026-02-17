@@ -98,7 +98,6 @@ Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la 
 
 - [x] Afficher les photos des utilisateurs qui ont comme rôle `ROLE_ADMIN` ou `ROLE_GUEST`  
 - [x] Autoriser la connexion des utilisateurs qui ont comme rôle `ROLE_ADMIN` ou `ROLE_GUEST`  
-- [ ] Ajouter le Form `GuestType` dans la code-coverage  
 
 ## TO-DO LATER
 
