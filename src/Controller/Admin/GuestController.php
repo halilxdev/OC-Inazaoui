@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Media;
 use App\Entity\User;
+use App\Form\GuestType;
 use App\Form\MediaType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,8 +23,24 @@ class GuestController extends AbstractController
     public function index(Request $request)
     {
         $page = $request->query->getInt('page', 1);
+        
+        // $users = $this->entityManager->getRepository(User::class)->findBy(["roles" => "ROLE_ADMIN"]);
+        
         $allUsers = $this->entityManager->getRepository(User::class)->findAll();
 
+        // DEBUG: Comptons les rôles
+        $roleCount = [];
+        foreach ($allUsers as $user) {
+            $roles = $user->getRoles();
+            $roleStr = implode(',', $roles);
+            if (!isset($roleCount[$roleStr])) {
+                $roleCount[$roleStr] = 0;
+            }
+            $roleCount[$roleStr]++;
+        }
+        dump('Distribution des rôles:', $roleCount);
+        dump('Total utilisateurs:', count($allUsers));
+        
         $filteredUsers = array_filter($allUsers, function($user) {
             $roles = $user->getRoles();
             return \in_array('ROLE_GUEST', $roles, true) || \in_array('ROLE_DISABLED', $roles, true);
@@ -42,20 +59,14 @@ class GuestController extends AbstractController
     #[Route(path: '/admin/guests/add', name: 'admin_guests_add')]
     public function add(Request $request)
     {
-        $media = new Media();
-        $form = $this->createForm(MediaType::class, $media, ['is_admin' => $this->isGranted('ROLE_ADMIN')]);
+        $guest = new User();
+        $form = $this->createForm(GuestType::class, $guest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (!$this->isGranted('ROLE_ADMIN')) {
-                $media->setUser($this->getUser());
-            }
-            $media->setPath('uploads/' . md5(uniqid()) . '.' . $media->getFile()->guessExtension());
-            $media->getFile()->move('uploads/', $media->getPath());
-            $this->entityManager->persist($media);
+            $this->entityManager->persist($guest);
             $this->entityManager->flush();
-
-            return $this->redirectToRoute('admin_media_index');
+            return $this->redirectToRoute('admin_guests_index');
         }
 
         return $this->render('admin/guests/add.html.twig', ['form' => $form->createView()]);

@@ -2,12 +2,22 @@
 
 {% block admin %}
     <div class="d-flex justify-content-between align-items-center">
-        <h1>Albums</h1>
+        <h1>Invité</h1>
         <a href="{{ path('admin_album_index') }}" class="btn btn-primary">Retour</a>
     </div>
     {{ form_start(form) }}
         {{ form_row(form.name) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.password) }}
+        {{ form_label(form.roles) }}
+        {% for role in form.roles %}
+            <li style="list-style: none;">
+                {{ form_errors(role) }}
+                {{ form_widget(role) }}
+            </li>
+        {% endfor %}
+        <br><br>
         <button type="submit" class="btn btn-primary">Ajouter</button>
     {{ form_end(form) }}
 {% endblock %}
-

@@ -96,7 +96,6 @@ Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la 
 
 ## Étape 7 - Fonctionnalités — xx/02/2026 
 
-- [ ] Vérification des fichiers uploadés  
 - [ ] Route administration->invités  
     - [ ] Ajout d'invité  
     - [ ] Révocation invité  
