@@ -24,31 +24,20 @@ class GuestController extends AbstractController
     {
         $page = $request->query->getInt('page', 1);
         
-        // $users = $this->entityManager->getRepository(User::class)->findBy(["roles" => "ROLE_ADMIN"]);
-        
-        $allUsers = $this->entityManager->getRepository(User::class)->findAll();
+        // $allUsers = $this->entityManager->getRepository(User::class)->findAll();
+        // $filteredUsers = array_filter($allUsers, function($user) {
+        //     $roles = $user->getRoles();
+        //     return \in_array('ROLE_GUEST', $roles, true) || \in_array('ROLE_DISABLED', $roles, true);
+        // });
+        // usort($filteredUsers, fn($a, $b) => $a->getId() <=> $b->getId());
+        // $total = \count($filteredUsers);
+        // $users = \array_slice($filteredUsers, 25 * ($page - 1), 25);
 
-        // DEBUG: Comptons les rôles
-        $roleCount = [];
-        foreach ($allUsers as $user) {
-            $roles = $user->getRoles();
-            $roleStr = implode(',', $roles);
-            if (!isset($roleCount[$roleStr])) {
-                $roleCount[$roleStr] = 0;
-            }
-            $roleCount[$roleStr]++;
-        }
-        dump('Distribution des rôles:', $roleCount);
-        dump('Total utilisateurs:', count($allUsers));
-        
-        $filteredUsers = array_filter($allUsers, function($user) {
-            $roles = $user->getRoles();
-            return \in_array('ROLE_GUEST', $roles, true) || \in_array('ROLE_DISABLED', $roles, true);
-        });
-        usort($filteredUsers, fn($a, $b) => $a->getId() <=> $b->getId());
+        $users = $this->entityManager->getRepository(User::class)->findNonAdminUsers();
 
-        $total = \count($filteredUsers);
-        $users = \array_slice($filteredUsers, 25 * ($page - 1), 25);
+        $total = \count($users);
+        $users = \array_slice($users, 25 * ($page - 1), 25);
+
         return $this->render('admin/guests/index.html.twig', [
             'users' => $users,
             'total' => $total,
