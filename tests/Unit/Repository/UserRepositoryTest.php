@@ -49,6 +49,37 @@ class UserRepositoryTest extends KernelTestCase
         $this->assertNull($this->repository->find($user));
     }
 
+    public function testFindNonAdminUsers(): void
+    {
+        $adminUser = new User();
+        $adminUser->setEmail('admin@test.com');
+        $adminUser->setName('Admin User');
+        $adminUser->setPassword('hashed');
+        $adminUser->setRoles(['ROLE_ADMIN']);
+
+        $this->entityManager->persist($adminUser);
+
+        $guestUser = new User();
+        $guestUser->setEmail('guest@test.com');
+        $guestUser->setName('Guest User');
+        $guestUser->setPassword('hashed');
+        $guestUser->setRoles(['ROLE_GUEST']);
+
+        $this->entityManager->persist($guestUser);
+
+        
+        $this->entityManager->flush();
+
+        $nonAdminUsers = $this->repository->findNonAdminUsers();
+
+        $this->assertEquals('guest@test.com', $nonAdminUsers[0]->getEmail());
+
+        $this->entityManager->remove($adminUser);
+        $this->entityManager->remove($guestUser);
+
+        $this->entityManager->flush();
+    }
+
     public function testUpgradePassword(): void
     {
         $user = new User();
