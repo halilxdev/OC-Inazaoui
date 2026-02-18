@@ -33,7 +33,7 @@ class AlbumTest extends TestCase
         $album = new Album();
         $album->addMedia($media);
         $album->removeMedia($media);
-        $this->assertEmpty($album->getMedias());
+        $this->assertCount(0, $album->getMedias());
     }
 
 }

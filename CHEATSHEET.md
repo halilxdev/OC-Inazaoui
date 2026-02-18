@@ -36,7 +36,12 @@ symfony console sass:build
 ```
 *Note : le fichier `.symfony.local.yaml` est configuré pour surveiller les fichiers SASS et les compiler automatiquement quand vous lancez le serveur web de Symfony.*
 
-### Tests
+### Serveur web
+```bash
+symfony serve
+```
+
+### PHPUnit
 
 ```bash
 symfony php bin/phpunit
@@ -48,12 +53,25 @@ vendor/bin/phpunit --coverage-html public/test-coverage
 
 *Note : Penser à charger les fixtures avant chaque éxécution des tests.*
 
-### Serveur web
+### PHPStan
+
 ```bash
-symfony serve
+vendor/bin/phpstan analyse src tests --level=5 --memory-limit 4048M
 ```
 
-### PHPStan
+### Git
+
+Sauvegarder les changements non-staged  
 ```bash
-vendor/bin/phpstan analyse src tests --memory-limit 4048M
+git stash
+```
+
+Créer et basculer sur une nouvelle branche  
+```bash
+git checkout -b ma-nouvelle-branche
+```
+
+Appliquer les changements à la nouvelle branche  
+```bash
+git stash pop
 ```

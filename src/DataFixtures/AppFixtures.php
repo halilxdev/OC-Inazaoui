@@ -61,8 +61,9 @@ class AppFixtures extends Fixture
         // Medias
         for($i = 1; $i <= 5049; $i++)
         {
+            $s = strval($i);
             $media = new Media();
-            $media->setPath("uploads/" . str_pad($i, 4, '0', STR_PAD_LEFT) . ".jpg");
+            $media->setPath("uploads/" . str_pad($s, 4, '0', STR_PAD_LEFT) . ".jpg");
             $media->setTitle("Media {$i}");
             $media->setAlbum($albums[array_rand($albums)]);
             $media->setUser($users[array_rand($users)]);

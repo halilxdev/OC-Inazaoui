@@ -99,6 +99,9 @@ Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la 
 
 ## Étape 8 — Lenteurs & Performances
 
+- [x] Implémentation de PHPStan.  
+- [ ] Correction des erreurs données par PHPStan.  
+
 Actuellement sur la page invités.  
 
 - **Database Queries** : 102  
@@ -106,6 +109,9 @@ Actuellement sur la page invités.
 - **Query time** : 209.33 ms  
 - **Invalid entities** : 0  
 - **Managed entities** : 5 116  
+
+- **Total execution time** : 656ms  
+- **Symfony intialization** : 10ms  
 ```
 
 ```

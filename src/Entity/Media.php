@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
 class Media
@@ -28,9 +29,9 @@ class Media
     #[ORM\Column]
     private string $title;
 
-    #[Assert\UploadedFile(
+    #[Assert\File(
         maxSize: '2M',         // 2 Mégaoctets = 16 Mégabits
-        maxSizeMessage: 'L\image est trop volumineuse. Veuillez la rétrécir ou en choisir une autre.',
+        maxSizeMessage: 'L\'image est trop volumineuse. Veuillez la rétrécir ou en choisir une autre.',
     )]
     private ?UploadedFile $file = null;
 

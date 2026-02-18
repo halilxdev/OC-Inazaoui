@@ -6,6 +6,7 @@ use App\Entity\Media;
 use App\Entity\User;
 use App\Form\GuestType;
 use App\Form\MediaType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +21,10 @@ class GuestController extends AbstractController
     ){}
 
     #[Route(path: '/admin/guests', name: 'admin_guests_index')]
-    public function index(Request $request)
+    public function index(
+        Request $request,
+        UserRepository $userRepository,
+    )
     {
         $page = $request->query->getInt('page', 1);
         
@@ -33,7 +37,7 @@ class GuestController extends AbstractController
         // $total = \count($filteredUsers);
         // $users = \array_slice($filteredUsers, 25 * ($page - 1), 25);
 
-        $users = $this->entityManager->getRepository(User::class)->findNonAdminUsers();
+        $users = $userRepository->findNonAdminUsers();
 
         $total = \count($users);
         $users = \array_slice($users, 25 * ($page - 1), 25);

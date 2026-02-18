@@ -24,7 +24,7 @@ class UserCheckerTest extends TestCase
             ->method('getRoles')
             ->willReturn(['ROLE_GUEST']);
 
-        $this->assertNull($this->userChecker->checkPreAuth($user));
+        $this->userChecker->checkPreAuth($user);
     }
 
     public function testCheckPreAuthWithDisabledUser(): void
@@ -40,24 +40,33 @@ class UserCheckerTest extends TestCase
         $this->userChecker->checkPreAuth($user);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testCheckPreAuthWithNonUserInstance(): void
     {
         $user = $this->createMock(UserInterface::class);
 
-        $this->assertNull($this->userChecker->checkPreAuth($user));
+        $this->userChecker->checkPreAuth($user);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testCheckPostAuthWithUser(): void
     {
         $user = $this->createMock(User::class);
 
-        $this->assertNull($this->userChecker->checkPostAuth($user));
+        $this->userChecker->checkPostAuth($user);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testCheckPostAuthWithNonUserInstance(): void
     {
         $user = $this->createMock(UserInterface::class);
 
-        $this->assertNull($this->userChecker->checkPostAuth($user));
+        $this->userChecker->checkPostAuth($user);
     }
 }

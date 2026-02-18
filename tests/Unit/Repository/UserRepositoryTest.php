@@ -104,7 +104,7 @@ class UserRepositoryTest extends KernelTestCase
     public function testUpgradePasswordWithInvalidUserThrowsException(): void
     {
         $fakeUser = new class implements PasswordAuthenticatedUserInterface {
-            public function getPassword(): ?string { return 'fake'; }
+            public function getPassword(): string { return 'fake'; }
         };
         $this->expectException(UnsupportedUserException::class);
         $this->repository->upgradePassword($fakeUser, 'new_password');

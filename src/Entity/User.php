@@ -16,12 +16,6 @@ use Webmozart\Assert\Assert;
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
-    private const ROLES =  [
-        'Admin' => "ROLE_ADMIN",
-        'GuestWithAccess' => 'ROLE_GUEST',
-        'GuestWithoutAccess' => 'ROLE_DISABLED'
-    ];
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
