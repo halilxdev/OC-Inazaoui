@@ -51,7 +51,7 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/test_db?serverVersion=16&charset=utf8
       
-      - name: 📊 PHPStan (analyse statique)
+      - name: Analyse statique PHPStan
         run: vendor/bin/phpstan analyse src --level=5
       
       # - name: 🔍 PHP CS Fixer (style)

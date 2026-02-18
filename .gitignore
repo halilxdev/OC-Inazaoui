@@ -26,3 +26,6 @@ TIMESHEET.md
 .vscode
 ###> misc ###
 /backup-file/
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###
