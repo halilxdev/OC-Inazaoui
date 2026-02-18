@@ -97,6 +97,19 @@ Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la 
 - [x] Afficher les photos des utilisateurs qui ont comme rôle `ROLE_ADMIN` ou `ROLE_GUEST`  
 - [x] Autoriser la connexion des utilisateurs qui ont comme rôle `ROLE_ADMIN` ou `ROLE_GUEST`  
 
+## Étape 8 — Lenteurs & Performances
+
+Actuellement sur la page invités.  
+
+- **Database Queries** : 102  
+- **Different statements** : 2  
+- **Query time** : 209.33 ms  
+- **Invalid entities** : 0  
+- **Managed entities** : 5 116  
+```
+
+```
+
 ## TO-DO LATER
 
 - [ ] Utiliser un profiler pour les lenteurs (sur la page Invités spécialement)  
