@@ -54,13 +54,18 @@ jobs:
       - name: Analyse statique PHPStan
         run: vendor/bin/phpstan analyse src --level=5
 
+      - name: Installation de Symfony CLI
+        run: |
+          curl -sS https://get.symfony.com/cli/installer | bash
+          echo "$HOME/.symfony5/bin" >> $GITHUB_PATH
+
       - name: Démarrage du serveur Symfony
-        run: php -S localhost:8000 -t public &
+        run: symfony server:start --no-tls --port=8000 --daemon
         env:
           DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/test_db?serverVersion=16&charset=utf8
 
       - name: Attente du serveur
-        run: sleep 2
+        run: sleep 3
 
       - name: Analyse performance sur la page invités
         run: |
