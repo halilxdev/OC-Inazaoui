@@ -75,7 +75,7 @@ jobs:
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo ""
 
-          RESULT=$(ab -n 100 -c 10 http://localhost:8000/guests 2>&1)
+          RESULT=$(ab -n 100 -c 1 http://localhost:8000/guests 2>&1)
 
           RPS=$(echo "$RESULT"    | grep "Requests per second" | awk '{print $4}')
           MEAN=$(echo "$RESULT"   | grep "Time per request"    | head -1 | awk '{print $4}')
