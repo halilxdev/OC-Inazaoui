@@ -9,7 +9,7 @@ on:
 jobs:
   CI:
     runs-on: ubuntu-latest
-    
+
     services:
       postgres:
         image: postgres:16
@@ -24,36 +24,44 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=3
-    
+
     steps:
       - name: Vérification du code
         uses: actions/checkout@v4
-      
+
       - name: Configuration PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
           extensions: mbstring, xml, pdo_pgsql
           coverage: xdebug
-      
+
       - name: Installation des dépendances
         run: composer install --prefer-dist --no-progress
-      
+
       - name: Configuration de la base de données en PostgreSQL
         run: |
           php bin/console doctrine:database:create --env=test --if-not-exists
           php bin/console doctrine:migrations:migrate --no-interaction --env=test
         env:
           DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/test_db?serverVersion=16&charset=utf8
-      
+
       - name: Lancement des tests PHPUnit
         run: php bin/phpunit --coverage-text
         env:
           DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/test_db?serverVersion=16&charset=utf8
-      
+
       - name: Analyse statique PHPStan
         run: vendor/bin/phpstan analyse src --level=5
-      
+
+      - name: Démarrage du serveur Symfony
+        run: php -S localhost:8000 -t public &
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/test_db?serverVersion=16&charset=utf8
+
+      - name: Attente du serveur
+        run: sleep 2
+
       - name: Analyse performance sur la page invités
         run: |
           echo ""
@@ -62,14 +70,14 @@ jobs:
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo ""
 
-          RESULT=$(ab -n 100 -c 10 -k https://localhost:8000/guests 2>/dev/null)
+          RESULT=$(ab -n 100 -c 10 http://localhost:8000/guests 2>&1)
 
-          RPS=$(echo "$RESULT"       | grep "Requests per second" | awk '{print $4}')
-          MEAN=$(echo "$RESULT"      | grep "Time per request"    | head -1 | awk '{print $4}')
-          MEDIAN=$(echo "$RESULT"    | grep " 50%"                | awk '{print $2}')
-          P95=$(echo "$RESULT"       | grep " 95%"                | awk '{print $2}')
-          P99=$(echo "$RESULT"       | grep " 99%"                | awk '{print $2}')
-          FAILED=$(echo "$RESULT"    | grep "Failed requests"     | awk '{print $3}')
+          RPS=$(echo "$RESULT"    | grep "Requests per second" | awk '{print $4}')
+          MEAN=$(echo "$RESULT"   | grep "Time per request"    | head -1 | awk '{print $4}')
+          MEDIAN=$(echo "$RESULT" | grep " 50%"                | awk '{print $2}')
+          P95=$(echo "$RESULT"    | grep " 95%"                | awk '{print $2}')
+          P99=$(echo "$RESULT"    | grep " 99%"                | awk '{print $2}')
+          FAILED=$(echo "$RESULT" | grep "Failed requests"     | awk '{print $3}')
 
           echo "  📄 Page testée     : /guests"
           echo "  🔁 Requêtes        : 100  |  Concurrence : 10"
@@ -82,7 +90,6 @@ jobs:
           echo "  ❌ Requêtes KO     : ${FAILED}"
           echo ""
 
-          # Seuil d'alerte : temps moyen > 500ms = fail
           MEAN_INT=$(echo "$MEAN" | cut -d. -f1)
           if [ "$MEAN_INT" -gt 500 ]; then
             echo "  ⚠️  ALERTE : temps moyen (${MEAN}ms) dépasse le seuil de 500ms !"
@@ -92,3 +99,5 @@ jobs:
             echo "  ✅ Performance OK (seuil : 500ms)"
             echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           fi
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/test_db?serverVersion=16&charset=utf8
