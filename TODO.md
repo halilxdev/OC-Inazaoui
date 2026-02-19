@@ -97,10 +97,12 @@ Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la 
 - [x] Afficher les photos des utilisateurs qui ont comme rôle `ROLE_ADMIN` ou `ROLE_GUEST`  
 - [x] Autoriser la connexion des utilisateurs qui ont comme rôle `ROLE_ADMIN` ou `ROLE_GUEST`  
 
-## Étape 8 — Lenteurs & Performances
+## Étape 8 — PHPStan — 18/02/2026
 
 - [x] Implémentation de PHPStan.  
-- [ ] Correction des erreurs données par PHPStan.  
+- [x] Correction des erreurs données par PHPStan.  
+
+## Étape 9 — Lenteurs & Performances — 19/02/2026
 
 Actuellement sur la page invités.  
 
@@ -112,6 +114,9 @@ Actuellement sur la page invités.
 
 - **Total execution time** : 656ms  
 - **Symfony intialization** : 10ms  
+
+![Performance page invités AVANT](/misc/guest-page-performance-before.png "Performance page invités — AVANT")
+
 ```
 
 ```

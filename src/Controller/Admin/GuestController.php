@@ -25,17 +25,8 @@ class GuestController extends AbstractController
         Request $request,
         UserRepository $userRepository,
     )
-    {
+    { 
         $page = $request->query->getInt('page', 1);
-        
-        // $allUsers = $this->entityManager->getRepository(User::class)->findAll();
-        // $filteredUsers = array_filter($allUsers, function($user) {
-        //     $roles = $user->getRoles();
-        //     return \in_array('ROLE_GUEST', $roles, true) || \in_array('ROLE_DISABLED', $roles, true);
-        // });
-        // usort($filteredUsers, fn($a, $b) => $a->getId() <=> $b->getId());
-        // $total = \count($filteredUsers);
-        // $users = \array_slice($filteredUsers, 25 * ($page - 1), 25);
 
         $users = $userRepository->findNonAdminUsers();
 
