@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -11,7 +13,7 @@ class SecurityController extends AbstractController
 {
     
     #[Route(path: '/login', name: 'admin_login')]
-    public function login(AuthenticationUtils $authenticationUtils)
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -22,7 +24,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/logout', name: 'app_logout')]
-    public function app_logout(Security $security)
+    public function app_logout(Security $security): RedirectResponse
     {
         $security->logout(false);
         return $this->redirectToRoute('home');

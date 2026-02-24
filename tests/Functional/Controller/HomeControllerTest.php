@@ -6,12 +6,13 @@ use App\Entity\Album;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class HomeControllerTest extends WebTestCase
 {
-    
-    private $client;
+
+    private KernelBrowser $client;
     private ?EntityManagerInterface $em;
 
     protected function setUp(): void

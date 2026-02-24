@@ -9,6 +9,7 @@ use App\Repository\MediaRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -19,28 +20,24 @@ class HomeController extends AbstractController
     ){}
 
     #[Route('/', name: 'home')]
-    public function home()
+    public function home(): Response
     {
         return $this->render('front/home.html.twig');
     }
 
     #[Route('/guests', name: 'guests')]
-    public function guests()
+    public function guests(
+        UserRepository $userRepoistory
+    ): Response
     {
-        $allUsers = $this->entityManager->getRepository(User::class)->findAll();
-        $guests = array_filter($allUsers, function($user) {
-            $roles = $user->getRoles();
-            return \in_array('ROLE_GUEST', $roles, true) || \in_array('ROLE_DISABLED', $roles, true);
-        });
-        usort($guests, fn($a, $b) => $a->getId() <=> $b->getId());
-
+        $guests = $userRepoistory->findNonAdminUsers();
         return $this->render('front/guests.html.twig', [
             'guests' => $guests
         ]);
     }
 
     #[Route('/guest/{id}', name: 'guest')]
-    public function guest(int $id)
+    public function guest(int $id): Response
     {
         $guest = $this->entityManager->getRepository(User::class)->find($id);
         if (!$guest) {
@@ -55,7 +52,7 @@ class HomeController extends AbstractController
     public function portfolio(
         MediaRepository $mediaRepository, 
         ?int $id = null,
-    )
+    ): Response
     {
         $albums = $this->entityManager->getRepository(Album::class)->findAll();
         $album = $id ? $this->entityManager->getRepository(Album::class)->find($id) : null;
@@ -72,7 +69,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/about', name: 'about')]
-    public function about()
+    public function about(): Response
     {
         return $this->render('front/about.html.twig');
     }

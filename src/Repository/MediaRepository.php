@@ -10,9 +10,9 @@ use Doctrine\Persistence\ManagerRegistry;
  * @extends ServiceEntityRepository<Media>
  *
  * @method Media|null find($id, $lockMode = null, $lockVersion = null)
- * @method Media|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Media|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method Media[]    findAll()
- * @method Media[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Media[]    findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
  */
 class MediaRepository extends ServiceEntityRepository
 {
@@ -21,7 +21,10 @@ class MediaRepository extends ServiceEntityRepository
         parent::__construct($registry, Media::class);
     }
 
-    public function findMediasByUserWithAccess($album): array
+    /**
+     * @return array<int, Media>
+     */
+    public function findMediasByUserWithAccess(mixed $album): array
     {
         return $this->createQueryBuilder('m')
             ->innerJoin('m.user', 'u')
@@ -34,6 +37,9 @@ class MediaRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return array<int, Media>
+     */
     public function findAllMediasByUserWithAccess(): array
     {
         return $this->createQueryBuilder('m')

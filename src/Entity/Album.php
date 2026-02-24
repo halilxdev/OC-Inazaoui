@@ -18,6 +18,9 @@ class Album
     #[ORM\Column]
     private string $name;
 
+    /**
+     * @var Collection<int, Media>
+     */
     #[ORM\OneToMany(targetEntity: Media::class, mappedBy: 'album')]
     private Collection $medias;
 

@@ -9,7 +9,9 @@ use App\Form\MediaType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -24,7 +26,7 @@ class GuestController extends AbstractController
     public function index(
         Request $request,
         UserRepository $userRepository,
-    )
+    ): Response
     { 
         $page = $request->query->getInt('page', 1);
 
@@ -41,7 +43,7 @@ class GuestController extends AbstractController
     }
 
     #[Route(path: '/admin/guests/add', name: 'admin_guests_add')]
-    public function add(Request $request)
+    public function add(Request $request): RedirectResponse|Response
     {
         $guest = new User();
         $form = $this->createForm(GuestType::class, $guest);
@@ -57,7 +59,7 @@ class GuestController extends AbstractController
     }
 
     #[Route(path: '/admin/guests/delete/{id}', name: 'admin_guests_delete')]
-    public function delete(int $id)
+    public function delete(int $id): RedirectResponse
     {
         $user = $this->entityManager->getRepository(User::class)->find($id);
         $this->entityManager->remove($user);
@@ -66,7 +68,7 @@ class GuestController extends AbstractController
     }
 
     #[Route(path: '/admin/guests/toggle-access/{id}', name: 'admin_guests_toggle_access')]
-    public function toggleAccess(int $id)
+    public function toggleAccess(int $id): RedirectResponse
     {
         $user = $this->entityManager->getRepository(User::class)->find($id);
         $currentRoles = $user->getRoles();

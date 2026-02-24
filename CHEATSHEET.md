@@ -56,7 +56,7 @@ vendor/bin/phpunit --coverage-html public/test-coverage
 ### PHPStan
 
 ```bash
-vendor/bin/phpstan analyse src tests --level=5 --memory-limit 4048M
+vendor/bin/phpstan analyse src tests --level=6 --memory-limit 4048M
 ```
 
 ### Git
