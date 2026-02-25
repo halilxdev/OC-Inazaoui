@@ -104,7 +104,37 @@ Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la 
 
 ## Étape 9 — Lenteurs & Performances — 19/02/2026
 
-Actuellement sur la page invités.  
+Le souci identifié :  
+Dans le template `guests`, on récupère le nombre de médias ce qui force Doctrine à faire des requêtes supplémentaires.  
+
+Ancienne façon de faire :
+```php
+public function findAllGuests(): array
+{
+    return $this->createQueryBuilder('u')
+        ->where('u.roles NOT LIKE :role')
+        ->setParameter('role', '%ROLE_ADMIN%')
+        ->getQuery()
+        ->getResult();
+}
+```
+
+Nouvelle façon de faire :
+```php
+public function findAllGuests(): array
+{
+    return $this->createQueryBuilder('u')
+        ->leftJoin('u.medias', 'm')
+        ->addSelect('m')
+        ->where('u.roles NOT LIKE :role')
+        ->setParameter('role', '%ROLE_ADMIN%')
+        ->getQuery()
+        ->getResult();
+}
+```
+
+
+Statistiques Doctrine AVANT :  
 
 - **Database Queries** : 102  
 - **Different statements** : 2  
@@ -115,15 +145,22 @@ Actuellement sur la page invités.
 - **Total execution time** : 656ms  
 - **Symfony intialization** : 10ms  
 
+Statistiques Doctrine APRÈS :  
+
+- **Database Queries** : 2 (-98%)  
+- **Different statements** : 2  
+- **Query time** : 14.45 ms (-93%)  
+- **Invalid entities** : 0  
+- **Managed entities** : 5 115  
+
+- **Total execution time** : 171ms (-74%)  
+- **Symfony intialization** : 3ms  
+
 ![Performance page invités AVANT](/misc/guest-page-performance-before.png "Performance page invités — AVANT")
-
-```
-
-```
+![Performance page invités APRÈS](/misc/guest-page-performance-after.png "Performance page invités — APRÈS")
 
 ## TO-DO LATER
 
-- [ ] Utiliser un profiler pour les lenteurs (sur la page Invités spécialement)  
 - [ ] Rédiger un README.md  
 - [ ] Rédiger un CONTRIBUTING.md  
 

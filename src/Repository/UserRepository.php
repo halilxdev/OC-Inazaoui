@@ -49,4 +49,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @return array<int, User>
+     */
+    public function findAllGuests(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.medias', 'm')
+            ->addSelect('m')
+            ->where('u.roles NOT LIKE :role')
+            ->setParameter('role', '%ROLE_ADMIN%')
+            ->getQuery()
+            ->getResult();
+    }
 }

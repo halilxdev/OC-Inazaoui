@@ -30,7 +30,7 @@ class HomeController extends AbstractController
         UserRepository $userRepoistory
     ): Response
     {
-        $guests = $userRepoistory->findNonAdminUsers();
+        $guests = $userRepoistory->findAllGuests();
         return $this->render('front/guests.html.twig', [
             'guests' => $guests
         ]);
