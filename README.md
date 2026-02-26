@@ -33,9 +33,7 @@
 | Invalid entites               | 0         | 0     | —     |
 | Managed entities              | 5 116     | 5 115 | —     |
 | Total execution time (en ms)  | 656       | 171   | -74%  |
-| Symfony initializaion (en ms) | 10        | 2     | -70%  |
+| Symfony initializaion (en ms) | 10        | 3     | -70%  |
 
-<div>
-![Performance page invités AVANT](/misc/guest-page-performance-before.png "Performance page invités — AVANT")
-![Performance page invités APRÈS](/misc/guest-page-performance-after.png "Performance page invités — APRÈS")
-</div>
+<img src="/misc/guest-page-performance-before.png" title="Performance page invités — AVANT" />
+<img src="/misc/guest-page-performance-after.png" title="Performance page invités — APRÈS" />
