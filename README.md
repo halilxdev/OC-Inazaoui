@@ -35,5 +35,6 @@
 | Total execution time (en ms)  | 656       | 171   | -74%  |
 | Symfony initializaion (en ms) | 10        | 3     | -70%  |
 
-<img src="/misc/guest-page-performance-before.png" title="Performance page invités — AVANT" />
-<img src="/misc/guest-page-performance-after.png" title="Performance page invités — APRÈS" />
+| Avant | Après |
+|-------|-------|
+| ![Avant](/misc/guest-page-performance-before.png) | ![Après](/misc/guest-page-performance-after.png) |
