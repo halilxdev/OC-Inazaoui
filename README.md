@@ -44,6 +44,78 @@ Ce projet me permet de mobiliser l'ensemble des compétences acquises tout au lo
 
 # Installation
 
+
+## Récupération du projet
+
+**Cloner le dépôt Git**
+```bash
+git clone https://github.com/halilxdev/OC-Inazaoui.git
+```
+
+## Installation du container Docker
+
+**Initialiser le container**
+```bash
+docker compose up -d --build
+```
+
+## Installation des dépendancesz
+
+**Installer les dépendances via Composer**
+```bash
+composer install
+```
+
+## Configuration de la base de données
+
+**Créer un fichier `.env.local` à la racine du projet et configurez vos variables d'environnement**
+
+```bash
+DATABASE_URL="postgresql://postgres:postgres@127.0.0.1:5432/ina_zaoui?serverVersion=16&charset=utf8"
+```
+
+**Créer la base de données**
+```bash
+symfony console doctrine:database:create
+```
+
+**Exécuter les migrations**
+```bash
+symfony console make:migration
+symfony console doctrine:migrations:migrate -n
+```
+
+**Charger les fixtures**
+```bash
+symfony console doctrine:fixtures:load
+```
+
+## Démarrage du serveur
+
+*Utilisez `-d` pour utiliser les serveurs/containers détachés et ainsi ne pas bloquer vos terminaux*
+
+**Si vous avez initialisé au moins une fois le container et que vous l'avez fermé par la suite**
+```bash
+docker compose up -d
+```
+
+**Pour lancer le serveur Symfony**
+```bash
+symfony serve -d
+```
+
+## Fermeture du serveur
+
+**Pour clotûrer le serveur Symfony**
+```bash
+symfony server:down
+```
+
+**Pour clotûrer une container Docker (à la fin de votre utilisation par exemple)**
+```bash
+docker compose down
+```
+
 # Usage
 
 
