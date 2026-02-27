@@ -185,25 +185,6 @@ symfony server:stop
 docker compose down
 ```
 
-# API & Routes principales
-
-## Routes publiques
-
-- `GET /` - Page d'accueil
-- `GET /portfolio/{id?}` - Portfolio avec filtrage par album
-- `GET /guests` - Liste des photographes invités
-- `GET /guest/{id}` - Profil d'un photographe
-- `GET /about` - À propos
-
-## Routes administrateur
-
-- `GET /login` - Connexion
-- `GET /admin/media` - Gestion des médias
-- `POST /admin/media/add` - Ajout de média
-- `DELETE /admin/media/delete/{id}` - Suppression de média
-- `GET /admin/album` - Gestion des albums
-- `GET /admin/guest` - Gestion des invités
-
 # Tests
 
 ## Commandes de test
@@ -292,11 +273,3 @@ Les contributions sont les bienvenues ! Consultez le [guide de contribution](CON
 # Licence
 
 Ce projet est développé dans le cadre d'une formation OpenClassrooms. Pour toute utilisation, veuillez contacter l'auteur.
-
----
-
-![OpenClassrooms](https://img.shields.io/badge/Projet_15-OpenClassrooms-purple?style=plastic&labelColor=white&color=7451eb)
-![OpenClassrooms](https://img.shields.io/badge/Refactorsation-Optimisation-purple?style=plastic&labelColor=white&color=7451eb)
-
-![Intitulé du projet](https://img.shields.io/badge/Ina_Zaoui-Portfolios_de_photographes_eco--friendly-green?style=for-the-badge&labelColor=blue&color=black)
-![Intitulé du projet](https://img.shields.io/badge/Refactorisez_le_code_d'un_site_pour_l'optimiser-green?style=for-the-badge&color=7451eb)
