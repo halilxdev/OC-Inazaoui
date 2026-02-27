@@ -48,7 +48,7 @@ symfony php bin/phpunit
 ```
 
 ```bash
-vendor/bin/phpunit --coverage-html public/test-coverage
+symfony php bin/phpunit --coverage-html public/test-coverage
 ```
 
 *Note : Penser à charger les fixtures avant chaque éxécution des tests.*

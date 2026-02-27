@@ -38,9 +38,14 @@ Ce projet me permet de mobiliser l'ensemble des compétences acquises tout au lo
 # Pré-requis
 
 ![PHP](https://img.shields.io/badge/PHP-8.2-green?logo=php&style=for-the-badge&labelColor=whitesmoke&logoSize=auto)
+![Composer](https://img.shields.io/badge/Composer-2.18-green?style=for-the-badge&labelColor=whitesmoke&logoSize=auto&logo=composer&logoColor=black)
 ![Docker Desktop](https://img.shields.io/badge/Docker-28.5-green?logo=docker&style=for-the-badge&labelColor=whitesmoke&logoSize=auto)
 ![Symfony CLI](https://img.shields.io/badge/Symfony_CLI-5.13-green?style=for-the-badge&labelColor=whitesmoke&logoSize=auto&logo=symfony&logoColor=black)
-![Composer](https://img.shields.io/badge/Composer-2.18-green?style=for-the-badge&labelColor=whitesmoke&logoSize=auto&logo=composer&logoColor=black)
+
+- [Installation de PHP](https://www.php.net/manual/en/install.php)
+- [Installation de Composer](https://getcomposer.org/download)
+- [Installation de Docker Desktop](https://www.docker.com/products/docker-desktop)
+- [Installation de Symfony CLI](https://symfony.com/download)
 
 # Installation
 
@@ -77,18 +82,32 @@ DATABASE_URL="postgresql://postgres:postgres@127.0.0.1:5432/ina_zaoui?serverVers
 **Créer la base de données**
 ```bash
 symfony console doctrine:database:create
+symfony console doctrine:database:create --env=test # Pour la base de tests
 ```
 
 **Exécuter les migrations**
 ```bash
 symfony console make:migration
+symfony console make:migration --env=test # Pour la base de tests
 symfony console doctrine:migrations:migrate -n
+symfony console doctrine:migrations:migrate -n --env=test # Pour la base de tests
 ```
 
 **Charger les fixtures**
 ```bash
 symfony console doctrine:fixtures:load
+symfony console doctrine:fixtures:load --env=test # Pour la base de tests
 ```
+
+## Souci avec la base de données
+
+En cas de souci quelconque avec la base de données vous pouvez utiliser ces commandes pour détruire la base de données et reprendre de zéro  
+```bash
+symfony console doctrine:database:drop --force --if-exists
+symfony console doctrine:database:drop --force --if-exists --env=test
+```
+
+# Usage
 
 ## Démarrage du serveur
 
@@ -104,20 +123,40 @@ docker compose up -d
 symfony serve -d
 ```
 
+## Lancement de tests
+
+**PHPUnit**
+```bash
+symfony php bin/phpunit
+```
+**Génération des tests avec un tableau de bord en HTML**
+```bash
+symfony php bin/phpunit --coverage-html public/test-coverage
+```
+Vous pouvez consulter le tableau de bord généré ci-dessus en vous rendant sur `/public/test-coverage/dashboard.html`
+
+**PHPStan**
+```bash
+vendor/bin/phpstan analyse src tests --level=6 --memory-limit 4048M
+```
+
+## Connexion au back-office
+
+Une fois les fixtures chargées, vous pouvez vous connecter au back-office avec ses identifiants :  
+- `inazaoui@gmail.com`
+- `password`
+
 ## Fermeture du serveur
 
 **Pour clotûrer le serveur Symfony**
 ```bash
-symfony server:down
+symfony server:stop
 ```
 
-**Pour clotûrer une container Docker (à la fin de votre utilisation par exemple)**
+**Pour clotûrer une container Docker**
 ```bash
 docker compose down
 ```
-
-# Usage
-
 
 # Résolution des problèmes
 
