@@ -29,3 +29,5 @@ TIMESHEET.md
 ###> phpstan/phpstan ###
 phpstan.neon
 ###< phpstan/phpstan ###
+
+CONSIGNES.md

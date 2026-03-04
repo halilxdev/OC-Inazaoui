@@ -52,4 +52,4 @@ jobs:
           DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/test_db?serverVersion=16&charset=utf8
 
       - name: Analyse statique PHPStan
-        run: vendor/bin/phpstan analyse src --level=5
+        run: vendor/bin/phpstan analyse src --level=6
