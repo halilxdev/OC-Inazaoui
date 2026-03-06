@@ -19,11 +19,11 @@ security:
                 login_path: admin_login
                 check_path: admin_login
     role_hierarchy:
-        ROLE_ADMIN: ROLE_USER
+        ROLE_ADMIN: ROLE_GUEST
     access_control:
         - { path: ^/admin/guests, roles: ROLE_ADMIN }
         - { path: ^/admin/album, roles: ROLE_ADMIN }
-        - { path: ^/admin, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_GUEST }
 
 when@test:
     security:

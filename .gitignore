@@ -31,3 +31,6 @@ phpstan.neon
 ###< phpstan/phpstan ###
 
 CONSIGNES.md
+SLIDES_DETAILS.md
+Auto-eval.pdf
+PLAN.md
