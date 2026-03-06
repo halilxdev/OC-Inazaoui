@@ -251,7 +251,7 @@ J'ai corrigé le tir en ajoutant une méthode dans le Repository qui récupère 
 | Temps de requête (ms)             | 209.33 | 14.45 | -93%  |
 | Entités invalides                 | 0      | 0     | —     |
 | Entités gérées                    | 5 116  | 5 115 | —     |
-| Temps d'exécution total (ms)      | 656    | 171   | -74%  |
+| Temps d'exécution total (ms)      | 395    | 171   | -57%  |
 | Initialisation Symfony (ms)       | 10     | 3     | -70%  |
 
 | Avant | Après |
