@@ -246,17 +246,18 @@ J'ai corrigé le tir en ajoutant une méthode dans le Repository qui récupère 
 
 | | Avant | Après | Évolution |
 | :--- | :--- | :--- | ---: |
-| Requêtes SQL                      | 102    | 2     | -98%  |
-| Requêtes distinctes               | 2      | 2     | —     |
-| Temps de requête (ms)             | 209.33 | 14.45 | -93%  |
-| Entités invalides                 | 0      | 0     | —     |
-| Entités gérées                    | 5 116  | 5 115 | —     |
-| Temps d'exécution total (ms)      | 395    | 171   | -57%  |
-| Initialisation Symfony (ms)       | 10     | 3     | -70%  |
+| Requêtes SQL                      | 102    | 2     |  |
+| Requêtes distinctes               | 2      | 2     |  |
+| Temps de requête (ms)             | 150.73 | 15.63 |  |
+| Temps d'exécution total (ms)      | 419    | 223   |  |
+| Initialisation Symfony (ms)       | 10     | 22    |  |
 
 | Avant | Après |
 |-------|-------|
+| ![Avant](/misc/home-page-performance-before.png) | ![Après](/misc/home-page-performance-after.png) |
+| ![Avant](/misc/portfolio-page-performance-before.png) | ![Après](/misc/portfolio-page-performance-after.png) |
 | ![Avant](/misc/guest-page-performance-before.png) | ![Après](/misc/guest-page-performance-after.png) |
+| ![Avant](/misc/guest-page-performance-before-doctrine.png) | ![Après](/misc/guest-page-performance-after-doctrine.png) |
 
 # Contribution
 
