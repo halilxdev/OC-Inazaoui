@@ -246,11 +246,10 @@ J'ai corrigé le tir en ajoutant une méthode dans le Repository qui récupère 
 
 | | Avant | Après | Évolution |
 | :--- | :--- | :--- | ---: |
-| Requêtes SQL                      | 102    | 2     |  |
-| Requêtes distinctes               | 2      | 2     |  |
-| Temps de requête (ms)             | 150.73 | 15.63 |  |
-| Temps d'exécution total (ms)      | 419    | 223   |  |
-| Initialisation Symfony (ms)       | 10     | 22    |  |
+| Requêtes SQL                      | 102    | 2     | -98.04 % |
+| Temps de requête (ms)             | 150.73 | 15.63 | 89.63 %  |
+| Temps d'exécution total (ms)      | 419    | 223   | -46.78 % |
+| Initialisation Symfony (ms)       | 10     | 22    | 120 %    |
 
 | Avant | Après |
 |-------|-------|
