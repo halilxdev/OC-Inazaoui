@@ -36,7 +36,7 @@ class AppFixtures extends Fixture
             $user->setEmail("invite+{$i}@example.com");
             $user->setDescription("Le maître de l''urbanité capturée, explore les méandres des cités avec un regard vif et impétueux, figeant l''énergie des rues dans des instants éblouissants. À travers une technique avant-gardiste, il métamorphose le béton et l''acier en toiles abstraites");
             $user->setPassword($this->passwordHasher->hashPassword($user, 'password'));
-            $user->setRoles(["ROLE_GUEST"]);
+            $user->setRoles(["ROLE_USER"]);
 
             $manager->persist($user);
         }

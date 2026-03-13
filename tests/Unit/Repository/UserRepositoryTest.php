@@ -26,7 +26,7 @@ class UserRepositoryTest extends KernelTestCase
         $user = new User();
         $user->setEmail('test@example.com');
         $user->setPassword('password');
-        $user->setRoles(["ROLE_GUEST"]);
+        $user->setRoles(["ROLE_USER"]);
         
         $this->assertInstanceOf(User::class, $user);
         $this->assertSame('test@example.com', $user->getEmail());
@@ -38,7 +38,7 @@ class UserRepositoryTest extends KernelTestCase
         $user->setEmail('new@test.com');
         $user->setName('Test');
         $user->setPassword('hashed');
-        $user->setRoles(["ROLE_GUEST"]);
+        $user->setRoles(["ROLE_USER"]);
 
         $this->entityManager->persist($user);
 
@@ -63,7 +63,7 @@ class UserRepositoryTest extends KernelTestCase
         $guestUser->setEmail('guest@test.com');
         $guestUser->setName('Guest User');
         $guestUser->setPassword('hashed');
-        $guestUser->setRoles(['ROLE_GUEST']);
+        $guestUser->setRoles(['ROLE_USER']);
 
         $this->entityManager->persist($guestUser);
 
@@ -86,7 +86,7 @@ class UserRepositoryTest extends KernelTestCase
         $user->setEmail('test@example.com');
         $user->setName('Test');
         $user->setPassword('oldPassword');
-        $user->setRoles(["ROLE_GUEST"]);
+        $user->setRoles(["ROLE_USER"]);
         
         $oldPassword = $user->getPassword();
         $newHashedPassword = 'newPassword';

@@ -55,7 +55,7 @@ class HomeControllerTest extends WebTestCase
         $guest->setDescription("Description test");
         $guest->setPassword('password');
         $guest->setName('Single Guest');
-        $guest->setRoles(["ROLE_GUEST"]);
+        $guest->setRoles(["ROLE_USER"]);
 
         $this->em->persist($guest);
         $this->em->flush();
@@ -82,7 +82,7 @@ class HomeControllerTest extends WebTestCase
         $guest->setEmail('link@test.com');
         $guest->setPassword('password');
         $guest->setName('Link Test');
-        $guest->setRoles(["ROLE_GUEST"]);
+        $guest->setRoles(["ROLE_USER"]);
 
         $this->em->persist($guest);
         $this->em->flush();

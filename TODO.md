@@ -94,8 +94,8 @@ Implémentation de PhpMyAdmin dans le container Docker pour mieux visualiser la 
 
 ## Étape 7 - Utilisateurs révoqués — 17/02/2026 
 
-- [x] Afficher les photos des utilisateurs qui ont comme rôle `ROLE_ADMIN` ou `ROLE_GUEST`  
-- [x] Autoriser la connexion des utilisateurs qui ont comme rôle `ROLE_ADMIN` ou `ROLE_GUEST`  
+- [x] Afficher les photos des utilisateurs qui ont comme rôle `ROLE_ADMIN` ou `ROLE_USER`  
+- [x] Autoriser la connexion des utilisateurs qui ont comme rôle `ROLE_ADMIN` ou `ROLE_USER`  
 
 ## Étape 8 — PHPStan — 18/02/2026
 

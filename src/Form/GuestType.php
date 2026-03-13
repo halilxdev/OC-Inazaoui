@@ -32,7 +32,7 @@ class GuestType extends AbstractType
                 'entry_type' => ChoiceType::class,
                 'entry_options'  => [
                     'choices'  => [
-                        'Accès autorisé'        => 'ROLE_GUEST',
+                        'Accès autorisé'        => 'ROLE_USER',
                         'Accès non-autorisé'    => 'ROLE_DISABLED',
                     ],
                 ],

@@ -22,7 +22,7 @@ class UserCheckerTest extends TestCase
         $user = $this->createMock(User::class);
         $user->expects($this->once())
             ->method('getRoles')
-            ->willReturn(['ROLE_GUEST']);
+            ->willReturn(['ROLE_USER']);
 
         $this->userChecker->checkPreAuth($user);
     }

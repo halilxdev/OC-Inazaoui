@@ -18,13 +18,13 @@ class UserTest extends TestCase
         $user->setName('Halil');
         $user->setDescription('Dev PHP');
         $user->setPassword('hashed_password');
-        $user->setRoles(["ROLE_GUEST"]);
+        $user->setRoles(["ROLE_USER"]);
         
         $this->assertEquals('test@test.com', $user->getEmail());
         $this->assertEquals('Halil', $user->getName());
         $this->assertEquals('Dev PHP', $user->getDescription());
         $this->assertEquals('hashed_password', $user->getPassword());
-        $this->assertEquals(["ROLE_GUEST"], $user->getRoles());
+        $this->assertEquals(["ROLE_USER"], $user->getRoles());
         $this->assertEquals('test@test.com', $user->getUserIdentifier());
         $this->assertCount(0, $user->getMedias());
     }
@@ -43,7 +43,7 @@ class UserTest extends TestCase
     {
         $user = new User();
         $this->assertNull($user->getId());
-        $this->assertEquals(["ROLE_GUEST"], $user->getRoles());
+        $this->assertEquals(["ROLE_USER"], $user->getRoles());
     }
     
     public function testUserCanBePromotedToAdmin(): void

@@ -72,10 +72,10 @@ class GuestController extends AbstractController
     {
         $user = $this->entityManager->getRepository(User::class)->find($id);
         $currentRoles = $user->getRoles();
-        if (\in_array("ROLE_GUEST", $currentRoles, true)) {
+        if (\in_array("ROLE_USER", $currentRoles, true)) {
             $user->setRoles(["ROLE_DISABLED"]);
         } else {
-            $user->setRoles(["ROLE_GUEST"]);
+            $user->setRoles(["ROLE_USER"]);
         }
         $this->entityManager->flush();
         return $this->redirectToRoute('admin_guests_index');
